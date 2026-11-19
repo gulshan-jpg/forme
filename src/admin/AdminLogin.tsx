@@ -97,7 +97,7 @@ export default function AdminLogin() {
       <input
        className="input placeholder:text-black/40 text-sm"
        type="email"
-       placeholder="yahan email daalo"
+       placeholder="Enter email here"
        value={e}
        onChange={x => setE(x.target.value)}
        aria-label="Email"
@@ -113,7 +113,7 @@ export default function AdminLogin() {
       <input
        className="input placeholder:text-black/40 text-sm"
        type="password"
-       placeholder="yahan password"
+       placeholder="Enter password here"
        value={p}
        onChange={x => setP(x.target.value)}
        aria-label="Password"

@@ -87,7 +87,7 @@ function SignIn() {
      <input
       className="input mt-1 placeholder:text-black/40 text-sm"
       type="email"
-      placeholder="yahan email daalo"
+      placeholder="Enter email here"
       {...register('email')}
      />
     </label>
@@ -100,7 +100,7 @@ function SignIn() {
      <input
       className="input mt-1 placeholder:text-black/40 text-sm"
       type="password"
-      placeholder="yahan password"
+      placeholder="Enter password here"
       {...register('password')}
      />
     </label>
@@ -139,7 +139,7 @@ function SignUp() {
      Full name
      <input
       className="input mt-1 placeholder:text-black/40 text-sm"
-      placeholder="yahan apna naam daalo"
+      placeholder="Enter full name here"
       {...register('name')}
      />
     </label>
@@ -152,7 +152,7 @@ function SignUp() {
      <input
       className="input mt-1 placeholder:text-black/40 text-sm"
       type="email"
-      placeholder="yahan email daalo"
+      placeholder="Enter email here"
       {...register('email')}
      />
     </label>
@@ -165,7 +165,7 @@ function SignUp() {
      <input
       className="input mt-1 placeholder:text-black/40 text-sm"
       type="tel"
-      placeholder="yahan 10-digit mobile number daalo"
+      placeholder="Enter 10-digit mobile number"
       {...register('phone')}
      />
     </label>
@@ -178,7 +178,7 @@ function SignUp() {
      <input
       className="input mt-1 placeholder:text-black/40 text-sm"
       type="password"
-      placeholder="yahan password"
+      placeholder="Enter password here"
       {...register('password')}
      />
     </label>
