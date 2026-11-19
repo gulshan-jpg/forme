@@ -16,6 +16,7 @@ const rawKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
 const url = cleanUrl(rawUrl)
 const key = rawKey?.trim()
 
-export const supabase = url && key ? createClient(url, key) : null
+const isTest = import.meta.env.MODE === 'test'
+export const supabase = !isTest && url && key ? createClient(url, key) : null
 export const isDemoMode = !supabase
 
