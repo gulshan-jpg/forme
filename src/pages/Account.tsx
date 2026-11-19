@@ -131,7 +131,13 @@ function SignUp() {
 
  return (
   <form
-   onSubmit={handleSubmit(async v => setMsg(await signUp(v.name, v.email, v.phone, v.password)))}
+   onSubmit={handleSubmit(async v => {
+    const res = await signUp(v.name, v.email, v.phone, v.password)
+    setMsg(res)
+    if (res.ok) {
+     toast('Account created successfully! Welcome to FORME®.', 'ok')
+    }
+   })}
    className="mt-6 space-y-4 text-sm"
   >
    <div>
