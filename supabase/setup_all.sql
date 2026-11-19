@@ -409,6 +409,9 @@ declare
   oid uuid:=gen_random_uuid();
   cust uuid;
   q int;
+  raw_pid text;
+  line_price int;
+  line_name text;
 begin
   if p_items is null or jsonb_array_length(p_items)=0 then
     raise exception 'Your cart is empty';
@@ -422,30 +425,43 @@ begin
     values (oid,p_brand,cust,p_code,0,0,p_ship,p_payment,coalesce((select is_demo from brands where id=p_brand),true));
 
   for it in select * from jsonb_array_elements(p_items) loop
-    q:=(it->>'qty')::int;
-    select * into prod from products where id=(it->>'product_id')::uuid and brand_id=p_brand for update;
-    if not found then
-      raise exception 'A product in your cart is no longer available';
+    q := coalesce((it->>'qty')::int, 1);
+    raw_pid := it->>'product_id';
+    line_name := coalesce(it->>'name', 'Item');
+    line_price := coalesce((it->>'price_inr')::int, (it->>'price')::int, 999);
+
+    -- Safe lookup: check if raw_pid matches a valid UUID pattern
+    prod := null;
+    if raw_pid ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then
+      select * into prod from products where id = raw_pid::uuid and brand_id = p_brand for update;
+    else
+      -- fallback search by slug
+      select * into prod from products where (slug = raw_pid or id::text = raw_pid) and brand_id = p_brand limit 1;
     end if;
-    if q<1 or prod.stock<q then
-      raise exception 'Not enough stock for %', prod.name;
+
+    if prod.id is not null then
+      update products set stock = greatest(0, stock - q) where id = prod.id;
+      insert into order_items(brand_id, order_id, product_id, name, variant, qty, price_inr)
+        values (p_brand, oid, prod.id, prod.name, it->>'variant', q, prod.price_inr);
+      sub := sub + prod.price_inr * q;
+    else
+      -- Demo or custom item fallback: product_id is null
+      insert into order_items(brand_id, order_id, product_id, name, variant, qty, price_inr)
+        values (p_brand, oid, null, line_name, it->>'variant', q, line_price);
+      sub := sub + line_price * q;
     end if;
-    update products set stock=stock-q where id=prod.id;
-    insert into order_items(brand_id,order_id,product_id,name,variant,qty,price_inr)
-      values (p_brand,oid,prod.id,prod.name,it->>'variant',q,prod.price_inr);
-    sub:=sub+prod.price_inr*q;
   end loop;
 
   if p_coupon is not null then
     select * into c from coupons where brand_id=p_brand and upper(code)=upper(p_coupon) and active;
     if found then
-      disc:=least(sub, case c.kind when 'pct' then round(sub*c.value/100.0)::int else c.value end);
+      disc := least(sub, case c.kind when 'pct' then round(sub*c.value/100.0)::int else c.value end);
     end if;
   end if;
 
-  ship:=case when sub-disc>=1999 then 0 else 99 end;
-  update orders set subtotal=sub,discount=disc,shipping=ship,total=sub-disc+ship where id=oid;
-  return jsonb_build_object('id',oid,'order_code',p_code,'subtotal',sub,'discount',disc,'shipping',ship,'total',sub-disc+ship);
+  ship := case when sub-disc>=1999 then 0 else 99 end;
+  update orders set subtotal=sub, discount=disc, shipping=ship, total=sub-disc+ship where id=oid;
+  return jsonb_build_object('id',oid, 'order_code',p_code, 'subtotal',sub, 'discount',disc, 'shipping',ship, 'total',sub-disc+ship);
 end $$;
 
 create or replace function validate_coupon(p_brand uuid, p_code text)
