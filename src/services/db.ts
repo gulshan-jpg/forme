@@ -54,17 +54,96 @@ const rowToOrder=(r:any):Order=>{const a=r.ship_address??{}
   lines:(r.order_items??[]).map((i:any)=>({name:i.name,size:i.variant??undefined,qty:i.qty,price:i.price_inr})),subtotal:r.subtotal,discount:r.discount,shipping:r.shipping,total:r.total,status:r.status,payment:r.payment_note??'',demo:!!r.is_demo}}
 export async function fetchOrders(){const b=await getBrandId();return (must(await sb().from('orders').select('*, order_items(*)').eq('brand_id',b).order('created_at',{ascending:false})) as any[]).map(rowToOrder)}
 export async function fetchMyOrders(){return (must(await sb().from('orders').select('*, order_items(*)').order('created_at',{ascending:false})) as any[]).map(rowToOrder)}
+export async function fetchOrderByCode(code:string):Promise<Order|null>{
+ if(!supabase)return null
+ const b=await getBrandId()
+ const res=await sb().from('orders').select('*, order_items(*)').eq('brand_id',b).eq('order_code',code).maybeSingle()
+ if(res.error||!res.data)return null
+ return rowToOrder(res.data)
+}
 export async function updateOrderStatus(dbId:string,status:OrderStatus){ok(await sb().from('orders').update({status}).eq('id',dbId))}
 export async function placeOrder(a:{code:string;coupon?:string;ship:Customer;items:{product_id:string;variant?:string;qty:number}[];payment:string;customerId?:string}){
  const b=await getBrandId()
  const r=await sb().rpc('place_order',{p_brand:b,p_code:a.code,p_coupon:a.coupon??null,p_ship:a.ship,p_items:a.items,p_payment:a.payment,p_customer:a.customerId??null})
  if(r.error)throw new Error(r.error.message)
  return r.data as {id:string;order_code:string;subtotal:number;discount:number;shipping:number;total:number}}
-export async function fetchCoupon(code:string):Promise<Coupon|null>{
- if(!supabase)return COUPONS[code.trim().toUpperCase()]??null
- const b=await getBrandId(),r=await supabase.rpc('validate_coupon',{p_brand:b,p_code:code.trim()});if(r.error)throw new Error(r.error.message)
- const d=r.data as {code:string;kind:'pct'|'flat';value:number}|null
- return d?{code:d.code,type:d.kind,value:d.value,label:d.kind==='pct'?`${d.value}% off`:`₹${d.value} off`}:null}
+
+export interface DbCoupon {
+ id: string
+ code: string
+ kind: 'pct' | 'flat'
+ value: number
+ active: boolean
+ minOrderValue?: number
+ maxDiscount?: number
+ expiryDate?: string
+ firstOrderOnly?: boolean
+ freeShipping?: boolean
+}
+const DEMO_COUPONS_KEY = 'forme-demo-coupons'
+const INITIAL_DEMO_COUPONS: DbCoupon[] = [
+ { id: 'c1', code: 'FORME10', kind: 'pct', value: 10, active: true },
+ { id: 'c2', code: 'WELCOME200', kind: 'flat', value: 200, active: true, minOrderValue: 999 },
+ { id: 'c3', code: 'FREESHIP', kind: 'flat', value: 99, active: true, freeShipping: true }
+]
+let memoryCoupons: DbCoupon[] | null = null
+function getStoredDemoCoupons(): DbCoupon[] {
+ if (memoryCoupons) return memoryCoupons
+ try {
+  const raw = typeof localStorage !== 'undefined' ? localStorage.getItem(DEMO_COUPONS_KEY) : null
+  if (raw) { memoryCoupons = JSON.parse(raw); return memoryCoupons! }
+ } catch {}
+ memoryCoupons = [...INITIAL_DEMO_COUPONS]
+ return memoryCoupons
+}
+function saveStoredDemoCoupons(list: DbCoupon[]) {
+ memoryCoupons = list
+ try { if (typeof localStorage !== 'undefined') localStorage.setItem(DEMO_COUPONS_KEY, JSON.stringify(list)) } catch {}
+}
+export async function fetchAdminCoupons(): Promise<DbCoupon[]> {
+ if (!supabase) return getStoredDemoCoupons()
+ const b = await getBrandId()
+ const r = await sb().from('coupons').select('*').eq('brand_id', b).order('code')
+ return must(r) as DbCoupon[]
+}
+export async function saveAdminCoupon(c: Partial<DbCoupon> & { code: string; kind: 'pct' | 'flat'; value: number; active: boolean }): Promise<void> {
+ const normCode = c.code.trim().toUpperCase()
+ if (!supabase) {
+  const list = getStoredDemoCoupons()
+  if (c.id) { saveStoredDemoCoupons(list.map(x => x.id === c.id ? { ...x, ...c, code: normCode } : x)) }
+  else { saveStoredDemoCoupons([...list, { id: 'c_' + Date.now(), ...c, code: normCode }]) }
+  return
+ }
+ const b = await getBrandId()
+ ok(await sb().from('coupons').upsert({ id: c.id, brand_id: b, code: normCode, kind: c.kind, value: c.value, active: c.active, min_order_value: c.minOrderValue, max_discount: c.maxDiscount, expiry_date: c.expiryDate, free_shipping: c.freeShipping, first_order_only: c.firstOrderOnly }))
+}
+export async function deleteAdminCoupon(id: string): Promise<void> {
+ if (!supabase) { saveStoredDemoCoupons(getStoredDemoCoupons().filter(c => c.id !== id)); return }
+ ok(await sb().from('coupons').delete().eq('id', id))
+}
+export async function toggleAdminCoupon(id: string, active: boolean): Promise<void> {
+ if (!supabase) { saveStoredDemoCoupons(getStoredDemoCoupons().map(c => c.id === id ? { ...c, active } : c)); return }
+ ok(await sb().from('coupons').update({ active }).eq('id', id))
+}
+export async function fetchCoupon(code: string): Promise<Coupon | null> {
+ if (!supabase) {
+  const found = getStoredDemoCoupons().find(c => c.code.toUpperCase() === code.trim().toUpperCase() && c.active)
+  return found ? {
+   code: found.code,
+   type: found.kind,
+   value: found.value,
+   label: found.freeShipping ? 'Free Shipping' : found.kind === 'pct' ? `${found.value}% off` : `₹${found.value} off`,
+   minOrderValue: found.minOrderValue,
+   maxDiscount: found.maxDiscount,
+   expiryDate: found.expiryDate,
+   firstOrderOnly: found.firstOrderOnly,
+   freeShipping: found.freeShipping
+  } : null
+ }
+ const b = await getBrandId(), r = await supabase.rpc('validate_coupon', { p_brand: b, p_code: code.trim() }); if (r.error) throw new Error(r.error.message)
+ const d = r.data as { code: string; kind: 'pct' | 'flat'; value: number } | null
+ return d ? { code: d.code, type: d.kind, value: d.value, label: d.kind === 'pct' ? `${d.value}% off` : `₹${d.value} off` } : null
+}
 
 // ---- customers & wishlist
 export async function ensureCustomer(){const b=await getBrandId(),r=await sb().rpc('ensure_customer',{p_brand:b});if(r.error)throw new Error(r.error.message)

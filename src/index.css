@@ -1,8 +1,92 @@
-@tailwind base;@tailwind components;@tailwind utilities;
-:root{--accent:#d9cdbd}
-body{@apply bg-cream text-ink font-sans antialiased}
-.btn{@apply inline-flex items-center justify-center gap-2 px-6 py-3 text-xs uppercase tracking-widest transition disabled:opacity-40 disabled:cursor-not-allowed}
-.btn-dark{@apply bg-ink text-cream hover:bg-char}
-.btn-line{@apply border border-ink hover:bg-ink hover:text-cream}
-.input{@apply w-full border border-ink/20 bg-transparent px-3 py-2.5 text-sm outline-none focus:border-ink}
-.h-serif{@apply font-serif tracking-tight}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   1. FORME® EXCLUSIVE TYPOGRAPHY (INTER / PLUS JAKARTA SANS)
+   ========================================================================= */
+
+:root {
+  --accent: #F2F0F1;
+  --font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-heading-tracking: -0.025em;
+}
+
+html, body, button, input, select, textarea {
+  font-family: var(--font-family);
+}
+
+body {
+  @apply bg-white text-black font-sans antialiased selection:bg-black selection:text-white;
+  font-family: var(--font-family);
+}
+
+.font-integral {
+  font-family: var(--font-heading) !important;
+  letter-spacing: var(--font-heading-tracking);
+  line-height: 1.02;
+  font-feature-settings: "cv05" 1, "cv08" 1, "ss01" 1;
+}
+
+.font-satoshi {
+  font-family: var(--font-family);
+}
+
+.h-serif {
+  font-family: var(--font-heading) !important;
+  letter-spacing: var(--font-heading-tracking);
+  line-height: 1.02;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-xs uppercase tracking-wider font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed;
+  font-family: var(--font-family);
+}
+
+.btn-dark {
+  @apply bg-black text-white hover:bg-black/85 rounded-full;
+}
+
+.btn-line {
+  @apply border border-black/15 hover:bg-black hover:text-white rounded-full;
+}
+
+.input {
+  @apply w-full border border-black/15 bg-white px-4 py-2.5 text-sm outline-none focus:border-black rounded-xl transition;
+  font-family: var(--font-family);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeReverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

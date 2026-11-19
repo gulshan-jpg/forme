@@ -1,5 +1,5 @@
 import { useState } from 'react'; import { useNavigate, Link } from 'react-router-dom'; import { signIn, DEMO_ADMIN } from '../services/auth'; import { isDemoMode } from '../services/supabase'
 export default function AdminLogin(){const [e,setE]=useState(isDemoMode?DEMO_ADMIN.email:''),[p,setP]=useState(isDemoMode?DEMO_ADMIN.password:''),[err,setErr]=useState(''),nav=useNavigate()
- const go=async(ev:React.FormEvent)=>{ev.preventDefault();const r=await signIn(e,p);r?setErr(r):nav('/admin')}
+ const go=async(ev:React.FormEvent)=>{ev.preventDefault();const r=await signIn(e,p);r?setErr(r):nav('/admin/dashboard')}
  return <div className="mx-auto max-w-sm px-4 py-24"><h1 className="h-serif text-4xl">Admin sign in</h1>{isDemoMode&&<p className="mt-2 text-xs text-char/70">Demo mode: credentials are prefilled ({DEMO_ADMIN.email} / {DEMO_ADMIN.password}).</p>}
  <form onSubmit={go} className="mt-6 space-y-3"><input className="input" type="email" value={e} onChange={x=>setE(x.target.value)} aria-label="Email"/><input className="input" type="password" value={p} onChange={x=>setP(x.target.value)} aria-label="Password"/>{err&&<p className="text-sm text-red-700">{err}</p>}<button className="btn btn-dark w-full">Sign in</button></form><Link to="/" className="mt-6 block text-center text-xs underline">Back to store</Link></div>}

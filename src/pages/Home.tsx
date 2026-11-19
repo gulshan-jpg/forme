@@ -1,30 +1,358 @@
-import { useEffect, useState } from 'react'; import { isDemoMode } from '../services/supabase'; import * as db from '../services/db'; import { Link } from 'react-router-dom'; import { Star } from 'lucide-react'
-import { useSettings } from '../store/settings'; import { useProducts } from '../store/products'; import ProductCard from '../components/ProductCard'; import { SAMPLE_REVIEWS } from '../data/products'
-const Row=({title,items,to}:{title:string;items:React.ComponentProps<typeof ProductCard>['p'][];to:string})=><section className="mx-auto mt-20 max-w-7xl px-4">
- <div className="mb-6 flex items-end justify-between"><h2 className="h-serif text-4xl">{title}</h2><Link to={to} className="text-xs uppercase tracking-widest underline">View all</Link></div>
- <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">{items.slice(0,4).map(p=><ProductCard key={p.id} p={p}/>)}</div></section>
-export default function Home(){
- const s=useSettings(), {products,categories}=useProducts(), [rev,setRev]=useState<{name:string;text:string;rating:number;sample?:boolean}[]>(isDemoMode?SAMPLE_REVIEWS.map(r=>({...r,sample:true})):[]),[email,setEmail]=useState(''), [done,setDone]=useState(false), [err,setErr]=useState('')
- useEffect(()=>{if(!isDemoMode)db.fetchLatestReviews(3).then(r=>setRev(r.map(x=>({name:x.name,text:x.text,rating:x.rating,sample:x.sample})))).catch(()=>setRev([]))},[])
- const sub=(e:React.FormEvent)=>{e.preventDefault();if(!/^\S+@\S+\.\S+$/.test(email)){setErr('Enter a valid email address.');return};setErr('');setDone(true)}
- return <>
-  <section className="mx-auto grid max-w-7xl md:grid-cols-2">
-   <div className="flex flex-col justify-center px-4 py-16 md:px-10"><p className="text-xs uppercase tracking-[0.3em] text-char/60">New season</p>
-    <h1 className="h-serif mt-4 text-5xl leading-[1.05] md:text-7xl">{s.heroTitle}</h1><p className="mt-5 max-w-md text-char/80">{s.heroSub}</p>
-    <div className="mt-8 flex gap-3"><Link to="/shop" className="btn btn-dark">Shop the edit</Link><Link to="/shop?sort=new" className="btn btn-line">New arrivals</Link></div></div>
-   <img src="https://picsum.photos/seed/forme-hero/1000/1200" alt="Editorial campaign" className="h-[60vh] w-full object-cover md:h-[80vh]"/></section>
-  <section className="mx-auto mt-20 max-w-7xl px-4"><h2 className="h-serif mb-6 text-4xl">Shop by category</h2>
-   <div className="grid grid-cols-2 gap-3 md:grid-cols-5">{categories.map(c=><Link key={c} to={`/shop?cat=${c}`} className="group relative aspect-[3/4] overflow-hidden">
-    <img src={`https://picsum.photos/seed/cat-${c}/600/800`} alt={c} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105"/>
-    <span className="absolute bottom-3 left-3 bg-cream px-3 py-1 text-xs uppercase tracking-widest">{c}</span></Link>)}</div></section>
-  <Row title="Featured" items={products.filter(p=>p.featured)} to="/shop"/>
-  <Row title="New arrivals" items={products.filter(p=>p.isNew)} to="/shop?sort=new"/>
-  <Row title="Best sellers" items={products.filter(p=>p.bestseller)} to="/shop?sort=best"/>
-  <section className="mx-auto mt-20 max-w-7xl px-4"><div className="bg-sand px-6 py-16 text-center"><p className="text-xs uppercase tracking-[0.3em]">Welcome offer</p><h2 className="h-serif mt-3 text-5xl">10% off your first order</h2><p className="mt-3">Use code <b>FORME10</b> at checkout.</p><Link to="/shop" className="btn btn-dark mt-6">Start shopping</Link></div></section>
-  <section className="mx-auto mt-20 grid max-w-7xl items-center gap-10 px-4 md:grid-cols-2"><img src="https://picsum.photos/seed/forme-story/900/700" alt="Our story" loading="lazy" className="w-full object-cover"/>
-   <div><p className="text-xs uppercase tracking-[0.3em] text-char/60">Our story</p><h2 className="h-serif mt-3 text-4xl">Made for people who notice.</h2><p className="mt-4 text-char/80">{s.name} began on Instagram with a simple idea: fewer, better things. Every piece is chosen for materials, craft and longevity, and sent to your door with the care of a small studio.</p></div></section>
-  {rev.length>0&&<section className="mx-auto mt-20 max-w-7xl px-4"><h2 className="h-serif mb-6 text-4xl">Loved by customers</h2><div className="grid gap-4 md:grid-cols-3">{rev.map((r,i)=><div key={i} className="border border-ink/10 p-6"><div className="flex">{Array.from({length:r.rating}).map((_,j)=><Star key={j} size={14} fill="#1a1a1a"/>)}</div><p className="mt-3 text-sm">{r.text}</p><p className="mt-4 text-xs uppercase tracking-widest text-char/60">{r.name}{r.sample?' · Sample review':''}</p></div>)}</div></section>}
-  <section className="mx-auto mt-20 max-w-7xl px-4"><h2 className="h-serif mb-6 text-4xl">On Instagram</h2><div className="grid grid-cols-3 gap-1 md:grid-cols-6">{[1,2,3,4,5,6].map(i=><a key={i} href={s.instagram} target="_blank" rel="noreferrer"><img src={`https://picsum.photos/seed/insta-${i}/400/400`} alt={`Social post ${i}`} loading="lazy" className="aspect-square w-full object-cover"/></a>)}</div></section>
-  <section className="mx-auto mt-20 max-w-xl px-4 text-center"><h2 className="h-serif text-4xl">Join the list</h2><p className="mt-2 text-sm text-char/70">New drops and private offers. No spam.</p>
-   {done?<p className="mt-6 text-sm">Thanks. You're on the list (demo: nothing was stored).</p>:<form onSubmit={sub} className="mt-6 flex gap-2"><input className="input" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email address" aria-label="Email"/><button className="btn btn-dark">Subscribe</button></form>}
-   {err&&<p className="mt-2 text-sm text-red-700">{err}</p>}</section></>}
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react'
+import { useProducts } from '../store/products'
+import { useRecentlyViewed } from '../store/recentlyViewed'
+import { inr } from '../lib/format'
+import ProductCard from '../components/ProductCard'
+
+const FORME_REVIEWS = [
+ {
+  name: 'Sarah M.',
+  text: "I'm blown away by the quality and drape of the heavyweight knitwear I received from FORME®. Every piece has exceeded my expectations in fabric density and stitching precision.",
+  rating: 5
+ },
+ {
+  name: 'Alex K.',
+  text: "Finding clothes that fit this clean and relaxed used to be a struggle until I found FORME®. The 240 GSM organic cotton tees hold their boxy silhouette perfectly even after washing.",
+  rating: 5
+ },
+ {
+  name: 'James L.',
+  text: "As someone who appreciates minimalist design and architectural cuts, I'm thrilled with FORME®. The textures, colors, and discreet hardware feel truly elevated.",
+  rating: 5
+ },
+ {
+  name: 'Priya R.',
+  text: "The fabric weight and drape are exceptional. Arrived in beautiful eco-friendly packaging within 48 hours. Will definitely be a returning patron.",
+  rating: 5
+ }
+]
+
+export default function Home() {
+ const { products } = useProducts()
+ const [activeReview, setActiveReview] = useState(0)
+
+ const newArrivals = products.slice(0, 4)
+ const topSelling = products.filter(p => p.bestseller || p.rating >= 4.8).slice(0, 4)
+ const recentIds = useRecentlyViewed(s => s.recentIds)
+ const recentlyViewed = recentIds
+  .map(id => products.find(p => p.id === id))
+  .filter((x): x is (typeof products)[0] => Boolean(x))
+  .slice(0, 4)
+
+ return (
+  <div className="bg-white text-black font-sans pb-16">
+   {/* =========================================================================
+       1. HERO SECTION (READABLE, SPACIOUS, MODERN EDITORIAL)
+       ========================================================================= */}
+   <section className="bg-[#F2F0F1] w-full overflow-hidden">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 md:pt-20">
+     <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12">
+      
+      {/* Left Column: Typography, Copy & Stats */}
+      <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+       {/* Big, Bold Geometric Headline (UI Kit Style - Fills Area Boldly) */}
+       <h1 className="font-integral text-5xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] font-black leading-[1.03] tracking-tight text-black">
+        FIND CLOTHES THAT MATCH YOUR STYLE
+       </h1>
+
+       {/* Subtitle */}
+       <p className="text-black/65 text-sm sm:text-base leading-relaxed max-w-lg font-normal">
+        Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
+       </p>
+
+       {/* Shop Now CTA Button */}
+       <div>
+        <Link
+         to="/shop"
+         className="inline-block w-full sm:w-auto text-center rounded-full bg-black text-white hover:bg-black/85 px-14 py-4 text-sm font-semibold transition duration-200 shadow-sm"
+        >
+         Shop Now
+        </Link>
+       </div>
+
+       {/* Stats Grid (3 Columns with Dividers) */}
+       <div className="pt-4 grid grid-cols-3 gap-4 border-t border-black/10 sm:border-0 sm:pt-2">
+        <div className="sm:border-r border-black/10 pr-4">
+         <p className="font-bold text-2xl sm:text-3xl md:text-4xl text-black">200+</p>
+         <p className="text-xs sm:text-sm text-black/60 font-normal mt-0.5">Original Silhouettes</p>
+        </div>
+        <div className="sm:border-r border-black/10 pr-4 pl-2">
+         <p className="font-bold text-2xl sm:text-3xl md:text-4xl text-black">2,000+</p>
+         <p className="text-xs sm:text-sm text-black/60 font-normal mt-0.5">Orders Delivered</p>
+        </div>
+        <div className="pl-2">
+         <p className="font-bold text-2xl sm:text-3xl md:text-4xl text-black">30,000+</p>
+         <p className="text-xs sm:text-sm text-black/60 font-normal mt-0.5">Satisfied Patrons</p>
+        </div>
+       </div>
+      </div>
+
+      {/* Right Column: Hero Fashion Imagery with Sparkle Stars */}
+      <div className="lg:col-span-5 relative flex items-end justify-center self-end">
+       {/* Big Sparkle Star (Top Right) */}
+       <svg
+        className="absolute top-2 right-4 sm:right-8 w-14 h-14 sm:w-20 sm:h-20 text-black z-20 pointer-events-none"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+       >
+        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 72.3858 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
+       </svg>
+
+       {/* Small Sparkle Star (Mid Left) */}
+       <svg
+        className="absolute top-1/2 left-2 sm:left-6 w-8 h-8 sm:w-11 sm:h-11 text-black z-20 pointer-events-none"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+       >
+        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 72.3858 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
+       </svg>
+
+       {/* Fashion Photography */}
+       <div className="relative z-10 w-full max-w-md sm:max-w-lg overflow-hidden">
+        <img
+         src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80"
+         alt="Find Clothes That Match Your Style"
+         className="w-full h-auto object-cover object-top"
+        />
+       </div>
+      </div>
+
+     </div>
+    </div>
+   </section>
+
+   {/* =========================================================================
+       2. FORME® VALUES SIGNATURE STRIP (REPLACED COMPETITOR BRANDS)
+       ========================================================================= */}
+   <div className="bg-black py-7 border-y border-white/10 overflow-hidden">
+    <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-around gap-6 sm:gap-8 px-4 sm:px-6 lg:px-8 text-white text-center">
+     <div className="flex items-center gap-2">
+      <span className="font-integral text-lg sm:text-xl md:text-2xl tracking-wider font-bold">100% ORGANIC COTTON</span>
+      <span className="text-white/40 text-xs">· 240+ GSM</span>
+     </div>
+     <div className="flex items-center gap-2">
+      <span className="font-integral text-lg sm:text-xl md:text-2xl tracking-wider font-bold">ETHICALLY CRAFTED</span>
+      <span className="text-white/40 text-xs">· ZERO-WASTE</span>
+     </div>
+     <div className="flex items-center gap-2">
+      <span className="font-integral text-lg sm:text-xl md:text-2xl tracking-wider font-bold">HANDCRAFTED IN INDIA</span>
+      <span className="text-white/40 text-xs">· LUXURY FINISH</span>
+     </div>
+     <div className="flex items-center gap-2">
+      <span className="font-integral text-lg sm:text-xl md:text-2xl tracking-wider font-bold">EXPRESS COURIER</span>
+      <span className="text-white/40 text-xs">· 48H DISPATCH</span>
+     </div>
+    </div>
+   </div>
+
+   {/* =========================================================================
+       3. "NEW ARRIVALS" SECTION
+       ========================================================================= */}
+   <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
+    <h2 className="font-integral text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black uppercase tracking-tight text-center text-black mb-10 sm:mb-14">
+     NEW ARRIVALS
+    </h2>
+
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+     {newArrivals.map(p => (
+      <ProductCard key={p.id} p={p} />
+     ))}
+    </div>
+
+    {/* Centered View All Pill Button */}
+    <div className="mt-10 sm:mt-12 text-center">
+     <Link
+      to="/shop?sort=new"
+      className="inline-block rounded-full border border-black/15 bg-white hover:bg-black hover:text-white px-16 py-3.5 text-sm font-semibold transition duration-200"
+     >
+      View All
+     </Link>
+    </div>
+   </section>
+
+   {/* Section Divider */}
+   <div className="mx-auto my-16 max-w-7xl border-t border-black/10 px-4" />
+
+   {/* =========================================================================
+       4. "TOP SELLING" SECTION
+       ========================================================================= */}
+   <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 className="font-integral text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black uppercase tracking-tight text-center text-black mb-10 sm:mb-14">
+     TOP SELLING
+    </h2>
+
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+     {topSelling.map(p => (
+      <ProductCard key={p.id} p={p} />
+     ))}
+    </div>
+
+    {/* Centered View All Pill Button */}
+    <div className="mt-10 sm:mt-12 text-center">
+     <Link
+      to="/shop?sort=best"
+      className="inline-block rounded-full border border-black/15 bg-white hover:bg-black hover:text-white px-16 py-3.5 text-sm font-semibold transition duration-200"
+     >
+      View All
+     </Link>
+    </div>
+   </section>
+
+   {/* =========================================================================
+       4B. RECENTLY VIEWED (FOR RETURNING SHOPPERS)
+       ========================================================================= */}
+   {recentlyViewed.length > 0 && (
+    <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8 border-t border-black/10 pt-16">
+     <div className="flex items-center justify-between mb-8 sm:mb-12">
+      <h2 className="font-integral text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black uppercase tracking-tight text-black">
+       RECENTLY VIEWED
+      </h2>
+      <Link to="/shop" className="text-xs uppercase tracking-wider text-black/60 hover:text-black underline">
+       Browse Catalogue
+      </Link>
+     </div>
+     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      {recentlyViewed.map(p => (
+       <ProductCard key={p.id} p={p} />
+      ))}
+     </div>
+    </section>
+   )}
+
+   {/* =========================================================================
+       5. "BROWSE BY DRESS STYLE" BENTO GRID
+       ========================================================================= */}
+   <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="rounded-[40px] bg-[#F0F0F0] p-6 sm:p-12 md:p-16">
+     <h2 className="font-integral text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black uppercase tracking-tight text-center text-black mb-10 sm:mb-14">
+      BROWSE BY DRESS STYLE
+     </h2>
+
+     <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+      {/* 1. Casual */}
+      <Link
+       to="/shop?cat=Streetwear"
+       className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+      >
+       <img
+        src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80"
+        alt="Casual"
+        className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105"
+       />
+       <div className="absolute top-6 left-6 z-10">
+        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Casual</p>
+       </div>
+      </Link>
+
+      {/* 2. Formal */}
+      <Link
+       to="/shop?cat=Clothing"
+       className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+      >
+       <img
+        src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80"
+        alt="Formal"
+        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+       />
+       <div className="absolute top-6 left-6 z-10">
+        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Formal</p>
+       </div>
+      </Link>
+
+      {/* 3. Party */}
+      <Link
+       to="/shop?cat=Clothing"
+       className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+      >
+       <img
+        src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=1000&q=80"
+        alt="Party"
+        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+       />
+       <div className="absolute top-6 left-6 z-10">
+        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Party</p>
+       </div>
+      </Link>
+
+      {/* 4. Gym */}
+      <Link
+       to="/shop?cat=Streetwear"
+       className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+      >
+       <img
+        src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80"
+        alt="Gym"
+        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+       />
+       <div className="absolute top-6 left-6 z-10">
+        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Gym</p>
+       </div>
+      </Link>
+     </div>
+    </div>
+   </section>
+
+   {/* =========================================================================
+       6. "OUR HAPPY CUSTOMERS" TESTIMONIALS
+       ========================================================================= */}
+   <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-between mb-8 sm:mb-12">
+     <h2 className="font-integral text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black uppercase tracking-tight text-black">
+      OUR HAPPY CUSTOMERS
+     </h2>
+
+     <div className="flex items-center gap-3">
+      <button
+       onClick={() => setActiveReview(c => (c - 1 + FORME_REVIEWS.length) % FORME_REVIEWS.length)}
+       aria-label="Previous review"
+       className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 hover:bg-black hover:text-white transition"
+      >
+       <ChevronLeft size={18} />
+      </button>
+      <button
+       onClick={() => setActiveReview(c => (c + 1) % FORME_REVIEWS.length)}
+       aria-label="Next review"
+       className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 hover:bg-black hover:text-white transition"
+      >
+       <ChevronRight size={18} />
+      </button>
+     </div>
+    </div>
+
+    {/* Review Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+     {FORME_REVIEWS.slice(0, 3).map((r, i) => (
+      <div
+       key={i}
+       className="rounded-[20px] border border-black/10 bg-white p-7 sm:p-8 flex flex-col justify-between shadow-xs"
+      >
+       <div>
+        {/* 5 Monochrome Stars */}
+        <div className="flex text-black">
+         {Array.from({ length: 5 }).map((_, j) => (
+          <Star key={j} size={16} fill="#000000" stroke="#000000" />
+         ))}
+        </div>
+
+        {/* Customer Name with Verified Green Badge */}
+        <div className="mt-4 flex items-center gap-1.5">
+         <span className="font-bold text-base text-black">{r.name}</span>
+         <span className="flex items-center justify-center rounded-full bg-emerald-500 text-white p-0.5">
+          <CheckCircle2 size={12} className="text-white" />
+         </span>
+        </div>
+
+        {/* Review Paragraph */}
+        <p className="mt-3 text-sm text-black/60 leading-relaxed font-normal">
+         "{r.text}"
+        </p>
+       </div>
+      </div>
+     ))}
+    </div>
+   </section>
+  </div>
+ )
+}
