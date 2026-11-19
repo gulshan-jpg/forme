@@ -43,7 +43,7 @@ import { openPrintableInvoice } from '../lib/invoice'
 
 const inS = z.object({
  email: z.string().email('Enter a valid email'),
- password: z.string().min(6, 'At least 6 characters')
+ password: z.string().min(1, 'Password is required')
 })
 
 const upS = inS.extend({
@@ -109,11 +109,9 @@ function SignIn() {
 
    {msg && <p className="text-xs font-medium text-red-600">{msg}</p>}
 
-   {isDemoMode && (
-    <p className="text-[11px] text-black/50 bg-[#F0EEED] p-2.5 rounded-lg">
-     💡 Demo credentials prefilled: <b>{DEMO_CUSTOMER.email}</b> / <b>{DEMO_CUSTOMER.password}</b>
-    </p>
-   )}
+   <p className="text-[11px] text-black/60 bg-[#F0EEED] p-2.5 rounded-xl font-medium">
+    💡 <b>Demo Access:</b> Sign in with <b>any</b> email and password.
+   </p>
 
    <button disabled={isSubmitting} className="w-full rounded-full bg-black py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-black/80 transition">
     {isSubmitting ? 'Signing in…' : 'Sign in'}

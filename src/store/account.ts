@@ -169,13 +169,32 @@ export const useAccount = create<S>()(
     }
 
     // 2. Demo fallback: check if registered locally (bypasses "Email not confirmed")
-    const a = get().local.find(x => x.email === e && x.password === password)
+    const a = get().local.find(x => x.email === e)
     if (a) {
      set({ me: strip(a) })
      return { ok: true }
     }
 
-    return { ok: false, msg: 'Incorrect email or password.' }
+    // 3. Demo Mode: Let user sign in with ANY email and ANY password!
+    const username = e.split('@')[0] || 'customer'
+    const derivedName = username
+     .replace(/[._-]+/g, ' ')
+     .trim()
+     .replace(/\b\w/g, char => char.toUpperCase()) || 'Demo Customer'
+
+    const demoUser: Local = {
+     id: 'c' + Date.now(),
+     name: derivedName,
+     email: e,
+     phone: '9876543210',
+     password: password || 'demo1234'
+    }
+
+    set(s => ({
+     local: [...s.local.filter(x => x.email !== e), demoUser],
+     me: strip(demoUser)
+    }))
+    return { ok: true }
    },
 
    signOut: async () => {
