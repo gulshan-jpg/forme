@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react'
 import { useProducts } from '../store/products'
@@ -35,6 +35,22 @@ export default function Home() {
 
  const newArrivals = products.slice(0, 4)
  const topSelling = products.filter(p => p.bestseller || p.rating >= 4.8).slice(0, 4)
+ const heroProducts = products.filter(p => p.bestseller || p.rating >= 4.8).slice(0, 8)
+ const displayHeroProducts = heroProducts.length > 0 ? heroProducts : products.slice(0, 6)
+
+ const [heroIndex, setHeroIndex] = useState(0)
+ const [isHeroHovered, setIsHeroHovered] = useState(false)
+
+ useEffect(() => {
+  if (displayHeroProducts.length <= 1 || isHeroHovered) return
+  const interval = setInterval(() => {
+   setHeroIndex(prev => (prev + 1) % displayHeroProducts.length)
+  }, 3500)
+  return () => clearInterval(interval)
+ }, [displayHeroProducts.length, isHeroHovered])
+
+ const currentHeroProduct = displayHeroProducts[heroIndex % (displayHeroProducts.length || 1)]
+
  const recentIds = useRecentlyViewed(s => s.recentIds)
  const recentlyViewed = recentIds
   .map(id => products.find(p => p.id === id))
@@ -89,34 +105,140 @@ export default function Home() {
        </div>
       </div>
 
-      {/* Right Column: Hero Fashion Imagery with Sparkle Stars */}
-      <div className="lg:col-span-5 relative flex items-end justify-center self-end">
+      {/* Right Column: Hero Fashion Imagery with Rotating Top Selling Showcase */}
+      <div className="lg:col-span-5 relative flex items-center justify-center py-4 lg:py-0">
        {/* Big Sparkle Star (Top Right) */}
        <svg
-        className="absolute top-2 right-4 sm:right-8 w-14 h-14 sm:w-20 sm:h-20 text-black z-20 pointer-events-none"
+        className="absolute -top-4 right-2 sm:right-6 w-14 h-14 sm:w-20 sm:h-20 text-black z-20 pointer-events-none"
         viewBox="0 0 100 100"
         fill="currentColor"
        >
-        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 72.3858 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
+        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 100 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
        </svg>
 
        {/* Small Sparkle Star (Mid Left) */}
        <svg
-        className="absolute top-1/2 left-2 sm:left-6 w-8 h-8 sm:w-11 sm:h-11 text-black z-20 pointer-events-none"
+        className="absolute top-1/2 -left-3 sm:-left-6 w-8 h-8 sm:w-11 sm:h-11 text-black z-20 pointer-events-none"
         viewBox="0 0 100 100"
         fill="currentColor"
        >
-        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 72.3858 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
+        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 100 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
        </svg>
 
-       {/* Luxury Still-Life Product Photography (Clean, No Models) */}
-       <div className="relative z-10 w-full max-w-md sm:max-w-lg overflow-hidden rounded-[28px] shadow-sm">
-        <img
-         src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80"
-         alt="Luxury Heavyweight Apparel Collection"
-         className="w-full h-auto object-cover object-center"
-        />
-       </div>
+       {/* Luxury Rotating Top Selling Product Card */}
+       {currentHeroProduct && (
+        <div
+         className="relative z-10 w-full max-w-md sm:max-w-lg overflow-hidden rounded-[28px] shadow-2xl border border-black/5 bg-white group"
+         onMouseEnter={() => setIsHeroHovered(true)}
+         onMouseLeave={() => setIsHeroHovered(false)}
+        >
+         <Link
+          to={`/product/${currentHeroProduct.slug}`}
+          className="block relative aspect-[4/4.8] sm:aspect-[4/4.5] w-full overflow-hidden bg-[#F6F6F6]"
+         >
+          {/* Studio Product Image - Clean & Centered */}
+          <img
+           key={currentHeroProduct.id}
+           src={currentHeroProduct.images[0]}
+           alt={currentHeroProduct.name}
+           className="w-full h-full object-cover object-center animate-fade-in group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
+
+          {/* Top Badges */}
+          <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-[11px] font-bold tracking-wider uppercase shadow-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            Top Selling · #{((heroIndex % displayHeroProducts.length) + 1)}
+           </span>
+
+           <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-black text-xs font-bold shadow-md">
+            <Star className="w-3.5 h-3.5 fill-black text-black" />
+            {currentHeroProduct.rating}
+            <span className="text-black/50 text-[10px] font-normal">({currentHeroProduct.reviews})</span>
+           </span>
+          </div>
+
+          {/* Bottom Overlay Info Banner */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-5 sm:p-6 text-white pt-16 z-10">
+           <div className="flex items-end justify-between gap-3">
+            <div className="min-w-0">
+             <p className="text-[11px] uppercase tracking-widest text-white/70 font-semibold mb-1">
+              {currentHeroProduct.category} · Premium Quality
+             </p>
+             <h3 className="font-bold text-lg sm:text-xl text-white truncate group-hover:underline">
+              {currentHeroProduct.name}
+             </h3>
+             <div className="flex items-center gap-2 mt-1.5">
+              <span className="font-extrabold text-xl sm:text-2xl text-white">
+               {inr(currentHeroProduct.price)}
+              </span>
+              {currentHeroProduct.originalPrice > currentHeroProduct.price && (
+               <span className="text-xs text-white/60 line-through">
+                {inr(currentHeroProduct.originalPrice)}
+               </span>
+              )}
+             </div>
+            </div>
+
+            <div className="shrink-0 bg-white text-black text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full shadow-md group-hover:bg-white/90 transition flex items-center gap-1">
+             Shop Now <ChevronRight className="w-3.5 h-3.5" />
+            </div>
+           </div>
+
+           {/* Carousel Slide Indicators */}
+           <div className="flex items-center justify-center gap-1.5 mt-4 pt-3 border-t border-white/10">
+            {displayHeroProducts.map((_, i) => (
+             <button
+              key={i}
+              type="button"
+              onClick={(e) => {
+               e.preventDefault();
+               e.stopPropagation();
+               setHeroIndex(i);
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 pointer-events-auto ${
+               i === (heroIndex % displayHeroProducts.length)
+                ? 'w-7 bg-white'
+                : 'w-1.5 bg-white/40 hover:bg-white/80'
+              }`}
+              aria-label={`Slide ${i + 1}`}
+             />
+            ))}
+           </div>
+          </div>
+         </Link>
+
+         {/* Prev / Next Buttons */}
+         {displayHeroProducts.length > 1 && (
+          <>
+           <button
+            type="button"
+            onClick={(e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             setHeroIndex(prev => (prev - 1 + displayHeroProducts.length) % displayHeroProducts.length);
+            }}
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition z-20 shadow-md"
+            aria-label="Previous product"
+           >
+            <ChevronLeft className="w-5 h-5" />
+           </button>
+           <button
+            type="button"
+            onClick={(e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             setHeroIndex(prev => (prev + 1) % displayHeroProducts.length);
+            }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition z-20 shadow-md"
+            aria-label="Next product"
+           >
+            <ChevronRight className="w-5 h-5" />
+           </button>
+          </>
+         )}
+        </div>
+       )}
       </div>
 
      </div>
