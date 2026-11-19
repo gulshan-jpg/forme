@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -71,8 +71,10 @@ export default function Checkout() {
  const [busy, setBusy] = useState(false)
  const [pinSearching, setPinSearching] = useState(false)
 
+ const [sp] = useSearchParams()
+
  useEffect(() => {
-  const queryCoupon = new URLSearchParams(window.location.search).get('coupon')
+  const queryCoupon = sp.get('coupon') || new URLSearchParams(window.location.search).get('coupon')
   if (queryCoupon && !coupon) {
    const qCode = queryCoupon.trim().toUpperCase()
    setCode(qCode)
@@ -89,7 +91,7 @@ export default function Checkout() {
     }
    }).catch(() => {})
   }
- }, [subtotal])
+ }, [subtotal, sp])
 
  const { register, handleSubmit, setValue, formState: { errors } } = useForm<F>({
   resolver: zodResolver(schema),

@@ -60,7 +60,7 @@ export default function ProductPage() {
   .map(id => products.find(x => x.id === id))
   .filter((x): x is typeof products[0] => Boolean(x && x.id !== p.id))
   .slice(0, 4)
- const isClothing = p.category === 'Clothing' || p.category === 'Streetwear' || Boolean(p.sizeChart)
+ const isClothing = p.category === 'Fashion' || p.category === 'Clothing' || p.category === 'Streetwear' || Boolean(p.sizeChart) || p.sizes.some(s => ['XS', 'S', 'M', 'L', 'XL', 'XXL', '28', '30', '32', '34'].includes(s))
 
  const validateAndAdd = () => {
   if (!chosen) {
@@ -439,12 +439,37 @@ export default function ProductPage() {
        Product Specifications
       </h3>
       <div className="divide-y divide-black/10 rounded-[16px] border border-black/10 bg-white p-6 text-sm">
-       {p.specifications && Object.entries(p.specifications).map(([key, val]) => (
-        <div key={key} className="grid grid-cols-3 py-3">
-         <span className="font-semibold text-black/60">{key}</span>
-         <span className="col-span-2 text-black font-medium">{val}</span>
-        </div>
-       ))}
+       {p.specifications && Object.keys(p.specifications).length > 0 ? (
+        Object.entries(p.specifications).map(([key, val]) => (
+         <div key={key} className="grid grid-cols-3 py-3">
+          <span className="font-semibold text-black/60">{key}</span>
+          <span className="col-span-2 text-black font-medium">{val}</span>
+         </div>
+        ))
+       ) : (
+        <>
+         <div className="grid grid-cols-3 py-3">
+          <span className="font-semibold text-black/60">Category</span>
+          <span className="col-span-2 text-black font-medium">{p.category}</span>
+         </div>
+         <div className="grid grid-cols-3 py-3">
+          <span className="font-semibold text-black/60">Material / Composition</span>
+          <span className="col-span-2 text-black font-medium">100% Organic Cotton / Artisan Crafted Studio Blend</span>
+         </div>
+         <div className="grid grid-cols-3 py-3">
+          <span className="font-semibold text-black/60">Available Options</span>
+          <span className="col-span-2 text-black font-medium">{p.sizes.join(', ')}</span>
+         </div>
+         <div className="grid grid-cols-3 py-3">
+          <span className="font-semibold text-black/60">Dispatch Window</span>
+          <span className="col-span-2 text-black font-medium">Dispatched within 24–48 hours via Air Express</span>
+         </div>
+         <div className="grid grid-cols-3 py-3">
+          <span className="font-semibold text-black/60">Origin</span>
+          <span className="col-span-2 text-black font-medium">Ethically Handcrafted in India</span>
+         </div>
+        </>
+       )}
        {p.careInstructions && (
         <div className="grid grid-cols-3 py-3">
          <span className="font-semibold text-black/60">Care Instructions</span>

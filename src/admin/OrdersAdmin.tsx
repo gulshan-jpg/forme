@@ -36,8 +36,13 @@ export default function OrdersAdmin() {
  })
 
  const change = async (id: string, dbId: string | undefined, s: OrderStatus) => {
-  if (await run(() => db.updateOrderStatus(dbId!, s), 'Status updated')) {
+  if (dbId) {
+   if (await run(() => db.updateOrderStatus(dbId, s), 'Status updated')) {
+    setStatus(id, s)
+   }
+  } else {
    setStatus(id, s)
+   toast('Status updated (local demo)')
   }
  }
 

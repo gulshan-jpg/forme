@@ -25,6 +25,12 @@ const COLOR_PALETTE = [
 ]
 
 const DRESS_STYLES = ['Casual', 'Formal', 'Party', 'Gym']
+const DRESS_STYLE_MAP: Record<string, string[]> = {
+ Casual: ['casual', 't-shirt', 'hoodie', 'sweatshirt', 'cotton', 'oversized', 'streetwear', 'tee', 'denim', 'fleece', 'candle'],
+ Formal: ['formal', 'tailored', 'blazer', 'trousers', 'wool', 'pleated', 'linen', 'loafers', 'evening', 'silk', 'merino', 'watch'],
+ Party: ['party', 'dress', 'evening', 'gold', 'perfume', 'silk', 'blush', 'jewellery', 'chain', 'earrings', 'pearls'],
+ Gym: ['gym', 'active', 'recovery', 'slides', 'tee', 'heavyweight', 'cotton', 'wellness', 'soak']
+}
 
 export default function Shop() {
  const [sp, setSp] = useSearchParams()
@@ -59,7 +65,20 @@ export default function Shop() {
  const allSizes = Array.from(new Set(products.flatMap(p => p.sizes).filter(s => s && s !== 'One size'))).sort()
 
  let list = products.filter(p => {
-  const matchesCat = !cat || p.category === cat
+  const normCat = cat.toLowerCase()
+  const matchesCat = !cat 
+   || p.category.toLowerCase() === normCat
+   || (normCat === 'clothing' && p.category === 'Fashion')
+   || (normCat === 'streetwear' && (p.category === 'Fashion' || p.tags.includes('streetwear')))
+   || (Boolean(DRESS_STYLE_MAP[cat]) && DRESS_STYLE_MAP[cat].some(t => p.tags.includes(t) || p.name.toLowerCase().includes(t)))
+
+  const matchesStyle = !style
+   || (Boolean(DRESS_STYLE_MAP[style]) && DRESS_STYLE_MAP[style].some(t => 
+       p.tags.includes(t) || 
+       p.name.toLowerCase().includes(t) || 
+       p.description.toLowerCase().includes(t)
+      ))
+
   const matchesQ = !q || (p.name + p.description + p.tags.join(' ')).toLowerCase().includes(q.toLowerCase())
   const matchesStock = !inStockOnly || p.stock > 0
   const matchesSize = !size || p.sizes.includes(size)
@@ -68,7 +87,7 @@ export default function Shop() {
    : price === 'above2500' ? p.price > 2500
    : true
   const matchesColor = !color || (p.color && p.color.toLowerCase().includes(color.toLowerCase()))
-  return matchesCat && matchesQ && matchesStock && matchesSize && matchesPrice && matchesColor
+  return matchesCat && matchesStyle && matchesQ && matchesStock && matchesSize && matchesPrice && matchesColor
  })
 
  list = [...list].sort((a, b) => 
@@ -78,7 +97,7 @@ export default function Shop() {
   : b.createdAt - a.createdAt
  )
 
- const activeFilterCount = (cat ? 1 : 0) + (price !== 'all' ? 1 : 0) + (size ? 1 : 0) + (inStockOnly ? 1 : 0) + (color ? 1 : 0)
+ const activeFilterCount = (cat ? 1 : 0) + (style ? 1 : 0) + (price !== 'all' ? 1 : 0) + (size ? 1 : 0) + (inStockOnly ? 1 : 0) + (color ? 1 : 0)
  const currentSortLabel = SORT_OPTIONS.find(o => o.id === sort)?.label ?? 'Most Popular'
 
  useEffect(() => {
@@ -99,6 +118,12 @@ export default function Shop() {
      <>
       <ChevronRight size={14} />
       <span className="text-black font-medium">{cat}</span>
+     </>
+    )}
+    {style && (
+     <>
+      <ChevronRight size={14} />
+      <span className="text-black font-medium">Style: {style}</span>
      </>
     )}
    </nav>
@@ -220,30 +245,51 @@ export default function Shop() {
 
      {/* Dress Style */}
      <div className="pb-2">
-      <h3 className="text-base font-bold text-black mb-3">Dress Style</h3>
+      <div className="flex items-center justify-between mb-3">
+       <h3 className="text-base font-bold text-black">Dress Style</h3>
+       {style && (
+        <button onClick={() => set('style', '')} className="text-xs text-black/60 underline hover:text-black">
+         Clear
+        </button>
+       )}
+      </div>
       <div className="space-y-2">
        {DRESS_STYLES.map(ds => (
         <button
          key={ds}
-         onClick={() => set('cat', cat === ds ? '' : ds)}
-         className={`w-full flex items-center justify-between text-sm transition ${
-          cat === ds ? 'font-bold text-black' : 'text-black/60 hover:text-black'
+         onClick={() => set('style', style === ds ? '' : ds)}
+         className={`w-full flex items-center justify-between text-sm transition py-1 px-1.5 rounded-lg ${
+          style === ds ? 'font-bold text-black bg-black/5' : 'text-black/60 hover:text-black'
          }`}
         >
          <span>{ds}</span>
-         <ChevronRight size={14} className="text-black/40" />
+         <ChevronRight size={14} className={style === ds ? 'text-black' : 'text-black/40'} />
         </button>
        ))}
       </div>
      </div>
 
-     {/* Apply filter button */}
-     <button
-      onClick={clearAll}
-      className="w-full rounded-full bg-black py-3 text-center text-sm font-medium text-white transition hover:bg-black/80"
-     >
-      Apply Filter
-     </button>
+     {/* Action Buttons: Apply / Clear */}
+     <div className="space-y-2 pt-2">
+      <button
+       type="button"
+       onClick={() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+       }}
+       className="w-full rounded-full bg-black py-3 text-center text-sm font-semibold text-white transition hover:bg-black/85 shadow-xs"
+      >
+       Apply Filters
+      </button>
+      {activeFilterCount > 0 && (
+       <button
+        type="button"
+        onClick={clearAll}
+        className="w-full rounded-full border border-black/20 bg-white py-2.5 text-center text-xs font-semibold text-black transition hover:bg-black/5"
+       >
+        Clear Filters ({activeFilterCount})
+       </button>
+      )}
+     </div>
     </aside>
 
     {/* ============================================================ */}
@@ -254,7 +300,7 @@ export default function Shop() {
      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5">
       <div>
        <h1 className="font-integral font-black text-3xl sm:text-4xl md:text-5xl text-black uppercase tracking-tight">
-        {cat || 'All products'}
+        {cat ? cat : style ? `Style: ${style}` : 'All products'}
        </h1>
        <p className="mt-1 text-xs sm:text-sm text-black/60">
         Showing {list.length} of {products.length} products
@@ -324,6 +370,12 @@ export default function Shop() {
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F0F0F0] px-3 py-1 text-xs text-black font-medium">
          {cat}
          <button onClick={() => set('cat', '')} className="hover:text-red-600 font-bold">×</button>
+        </span>
+       )}
+       {style && (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F0F0F0] px-3 py-1 text-xs text-black font-medium">
+         Style: {style}
+         <button onClick={() => set('style', '')} className="hover:text-red-600 font-bold">×</button>
         </span>
        )}
        {color && (
@@ -591,6 +643,33 @@ export default function Shop() {
             }`}
            >
             {s}
+           </button>
+          ))}
+         </div>
+        </div>
+
+        {/* Dress Style */}
+        <div className="border-t border-black/10 pt-6">
+         <div className="flex items-center justify-between mb-3">
+          <p className="font-bold uppercase tracking-wider text-black text-sm">Dress Style</p>
+          {style && (
+           <button onClick={() => set('style', '')} className="text-black/60 underline">
+            Clear
+           </button>
+          )}
+         </div>
+         <div className="grid grid-cols-2 gap-2">
+          {DRESS_STYLES.map(ds => (
+           <button
+            key={ds}
+            onClick={() => set('style', style === ds ? '' : ds)}
+            className={`rounded-full px-4 py-2 text-xs font-medium transition ${
+             style === ds
+              ? 'bg-black text-white'
+              : 'bg-[#F0F0F0] text-black/70 hover:bg-black/10'
+            }`}
+           >
+            {ds}
            </button>
           ))}
          </div>

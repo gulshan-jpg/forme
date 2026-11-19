@@ -337,7 +337,7 @@ export default function Home() {
      <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
       {/* 1. Casual */}
       <Link
-       to="/shop?cat=Streetwear"
+       to="/shop?style=Casual"
        className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
@@ -367,7 +367,7 @@ export default function Home() {
 
       {/* 2. Formal */}
       <Link
-       to="/shop?cat=Clothing"
+       to="/shop?style=Formal"
        className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
@@ -396,7 +396,7 @@ export default function Home() {
 
       {/* 3. Party */}
       <Link
-       to="/shop?cat=Clothing"
+       to="/shop?style=Party"
        className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
@@ -425,7 +425,7 @@ export default function Home() {
 
       {/* 4. Gym */}
       <Link
-       to="/shop?cat=Streetwear"
+       to="/shop?style=Gym"
        className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img

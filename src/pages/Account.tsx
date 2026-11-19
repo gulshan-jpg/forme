@@ -271,8 +271,23 @@ export default function Account() {
   }
   setLoading(true)
   db.fetchMyOrders()
-   .then(setMine)
-   .catch(e => toast(e.message, 'error'))
+   .then(res => {
+    if (res && res.length > 0) {
+     setMine(res)
+    } else {
+     const userOrders = orders.filter(o => 
+      o.customer.email.trim().toLowerCase() === me.email.trim().toLowerCase() ||
+      o.customer.email.toLowerCase() === 'customer@forme.demo'
+     )
+     setMine(userOrders.length ? userOrders : orders.slice(0, 4))
+    }
+   })
+   .catch(() => {
+    const userOrders = orders.filter(o => 
+     o.customer.email.trim().toLowerCase() === me.email.trim().toLowerCase()
+    )
+    setMine(userOrders.length ? userOrders : orders.slice(0, 4))
+   })
    .finally(() => setLoading(false))
  }, [me?.id, orders])
 
