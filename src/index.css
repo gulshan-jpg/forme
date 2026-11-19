@@ -1,0 +1,8 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+:root{--accent:#d9cdbd}
+body{@apply bg-cream text-ink font-sans antialiased}
+.btn{@apply inline-flex items-center justify-center gap-2 px-6 py-3 text-xs uppercase tracking-widest transition disabled:opacity-40 disabled:cursor-not-allowed}
+.btn-dark{@apply bg-ink text-cream hover:bg-char}
+.btn-line{@apply border border-ink hover:bg-ink hover:text-cream}
+.input{@apply w-full border border-ink/20 bg-transparent px-3 py-2.5 text-sm outline-none focus:border-ink}
+.h-serif{@apply font-serif tracking-tight}

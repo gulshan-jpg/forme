@@ -1,0 +1,8 @@
+import { Link, useParams } from 'react-router-dom'; import { useOrders } from '../store/orders'; import { inr } from '../lib/format'; import WhatsAppButton from '../components/WhatsAppButton'; import { orderMessage } from '../lib/messages'
+export default function Confirmation(){const {id}=useParams(),o=useOrders(s=>s.orders).find(x=>x.id===id)
+ if(!o)return <div className="py-32 text-center"><h1 className="h-serif text-4xl">Order not found</h1><Link to="/" className="btn btn-dark mt-6">Home</Link></div>
+ return <div className="mx-auto max-w-xl px-4 py-16 text-center"><p className="text-xs uppercase tracking-[0.3em] text-char/60">{o.demo?'Demo order placed':'Order placed'}</p><h1 className="h-serif mt-3 text-5xl">Thank you, {o.customer.name.split(' ')[0]}</h1>
+  <p className="mt-3 text-sm">Order ID <b>{o.id}</b></p><p className="mt-1 text-xs text-char/70">{o.demo?'This is a demo order. No payment was taken and nothing will be shipped.':o.payment}</p>
+  <ul className="mt-8 divide-y divide-ink/10 border-y border-ink/10 text-left text-sm">{o.lines.map((l,i)=><li key={i} className="flex justify-between py-3"><span>{l.name}{l.size?` (${l.size})`:''} × {l.qty}</span><span>{inr(l.price*l.qty)}</span></li>)}<li className="flex justify-between py-3 font-medium"><span>Total</span><span>{inr(o.total)}</span></li></ul>
+  <p className="mt-4 text-sm text-char/80">Shipping to {o.customer.address}, {o.customer.city}, {o.customer.state} {o.customer.pin}</p>
+  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center"><WhatsAppButton text={orderMessage(o)}>Order enquiry on WhatsApp</WhatsAppButton><Link to="/shop" className="btn btn-dark">Continue shopping</Link></div></div>}

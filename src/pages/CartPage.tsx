@@ -1,0 +1,5 @@
+import { Link } from 'react-router-dom'; import CartLines, { useCartDetail } from '../components/CartLines'; import { inr } from '../lib/format'; import { totals } from '../lib/pricing'; import WhatsAppButton from '../components/WhatsAppButton'; import { cartMessage } from '../lib/messages'
+export default function CartPage(){const {items,subtotal}=useCartDetail(),t=totals(subtotal)
+ return <div className="mx-auto max-w-3xl px-4 py-10"><h1 className="h-serif text-5xl">Your cart</h1><CartLines/>
+ {items.length>0&&<div className="mt-6 space-y-2 border-t border-ink/10 pt-4 text-sm"><p className="flex justify-between"><span>Subtotal</span><span>{inr(subtotal)}</span></p><p className="flex justify-between"><span>Shipping</span><span>{t.shipping?inr(t.shipping):'Free'}</span></p><p className="flex justify-between text-base font-medium"><span>Total</span><span>{inr(t.total)}</span></p>
+  <Link to="/checkout" className="btn btn-dark mt-4 w-full">Proceed to checkout</Link><WhatsAppButton className="btn btn-line w-full" text={cartMessage(items)}>Enquire on WhatsApp</WhatsAppButton></div>}</div>}

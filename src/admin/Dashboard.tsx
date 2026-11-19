@@ -1,0 +1,8 @@
+import { useOrders } from '../store/orders'; import { useProducts } from '../store/products'; import { inr } from '../lib/format'
+export default function Dashboard(){const orders=useOrders(s=>s.orders),n=useProducts(s=>s.products.length)
+ const rev=orders.filter(o=>o.status!=='Cancelled').reduce((a,o)=>a+o.total,0)
+ const days=Array.from({length:7},(_,i)=>{const d=new Date(Date.now()-(6-i)*86400000).toDateString();return {l:new Date(d).toLocaleDateString('en-IN',{weekday:'short'}),v:orders.filter(o=>new Date(o.date).toDateString()===d&&o.status!=='Cancelled').reduce((a,o)=>a+o.total,0)}})
+ const max=Math.max(1,...days.map(d=>d.v))
+ return <div><div className="grid gap-4 md:grid-cols-3">{[['Total orders',orders.length],['Products',n],['Demo revenue',inr(rev)]].map(([l,v])=><div key={l as string} className="border border-ink/10 p-6"><p className="text-xs uppercase tracking-widest text-char/60">{l}</p><p className="h-serif mt-2 text-4xl">{v}</p></div>)}</div>
+ <h2 className="h-serif mt-10 text-2xl">Sales overview (last 7 days)</h2><div className="mt-4 flex h-40 items-end gap-3">{days.map(d=><div key={d.l} className="flex flex-1 flex-col items-center gap-1"><div className="w-full bg-ink" style={{height:`${(d.v/max)*100}%`,minHeight:2}} title={inr(d.v)}/><span className="text-xs">{d.l}</span></div>)}</div>
+ <h2 className="h-serif mt-10 text-2xl">Recent orders</h2><div className="mt-4 overflow-x-auto"><table className="w-full text-left text-sm"><tbody>{orders.slice(0,5).map(o=><tr key={o.id} className="border-b border-ink/10"><td className="py-2">{o.id}</td><td>{o.customer.name}</td><td>{o.status}</td><td className="text-right">{inr(o.total)}</td></tr>)}</tbody></table></div></div>}
