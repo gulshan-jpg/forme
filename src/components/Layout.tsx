@@ -107,134 +107,139 @@ export default function Layout() {
    <header className="sticky top-0 z-40 bg-white border-b border-black/10">
     <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-4 lg:px-8">
      
-     {/* Mobile Menu & Brand Logo */}
-     <div className="flex items-center gap-4">
-      <button
-       aria-label="Menu"
-       className="md:hidden text-black p-1"
-       onClick={() => setMenu(!menu)}
-      >
-       {menu ? <X size={24} /> : <Menu size={24} />}
-      </button>
-
-      {/* Brand Name: FORME in Luxury Didone Serif (Biggest Visual Anchor) */}
-      <Link
-       to="/"
-       className="font-brand text-3xl sm:text-4xl md:text-[46px] lg:text-[52px] font-black tracking-tight text-black uppercase leading-none select-none hover:opacity-85 transition inline-block pt-1"
-      >
-       FORME
-      </Link>
-     </div>
-
-     {/* Desktop Navigation Links (Proportional Clean Subheadings) */}
-     <nav className="hidden md:flex items-center gap-6 text-xs sm:text-[13px] uppercase tracking-wider text-black/75 font-semibold">
-      <div className="relative group">
-       <NavLink
-        to="/shop"
-        className="flex items-center gap-1 hover:text-black transition"
+     {/* Left: Mobile Menu, Brand Logo & Navigation Links */}
+     <div className="flex items-center">
+      {/* Mobile Menu & Brand Logo */}
+      <div className="flex items-center gap-4 shrink-0">
+       <button
+        aria-label="Menu"
+        className="md:hidden text-black p-1"
+        onClick={() => setMenu(!menu)}
        >
-        <span>Shop</span>
-        <ChevronDown size={13} className="text-black/50 group-hover:rotate-180 transition duration-200" />
-       </NavLink>
-       {/* Dropdown Menu */}
-       <div className="absolute left-0 top-full hidden group-hover:block pt-2 z-50">
-        <div className="bg-white border border-black/10 shadow-lg rounded-2xl py-2 w-52 normal-case font-medium">
-         <Link to="/shop" className="block px-4 py-2 text-xs font-semibold hover:bg-black/5">All Collections</Link>
-         {cats.map(c => (
-          <Link key={c} to={`/shop?cat=${encodeURIComponent(c)}`} className="block px-4 py-2 text-xs text-black/70 hover:bg-black/5 hover:text-black">
-           {c}
-          </Link>
-         ))}
-        </div>
-       </div>
+        {menu ? <X size={24} /> : <Menu size={24} />}
+       </button>
+
+       {/* Brand Name: FORME in Luxury Didone Serif (Biggest Visual Anchor) */}
+       <Link
+        to="/"
+        className="font-brand text-3xl sm:text-4xl md:text-[46px] lg:text-[52px] font-black tracking-tight text-black uppercase leading-none select-none hover:opacity-85 transition inline-block pt-1"
+       >
+        FORME
+       </Link>
       </div>
 
-      <Link to="/shop?price=under1000" className="hover:text-black transition">
-       On Sale
-      </Link>
-      <Link to="/shop?sort=new" className="hover:text-black transition">
-       New Arrivals
-      </Link>
-      <Link to="/about" className="hover:text-black transition">
-       About
-      </Link>
-     </nav>
-
-     {/* Search Input Bar with Live Autocomplete */}
-     <div ref={searchRef} className="hidden md:flex flex-1 max-w-md mx-6 relative">
-      <form onSubmit={submit} className="w-full">
-       <div className="relative w-full">
-        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-        <input
-         value={q}
-         onChange={e => {
-          setQ(e.target.value)
-          setShowAutocomplete(true)
-         }}
-         onFocus={() => setShowAutocomplete(true)}
-         placeholder="Search products by name, style, category..."
-         className="w-full rounded-full bg-[#F0F0F0] pl-11 pr-4 py-2.5 text-xs text-black placeholder-black/40 outline-none focus:ring-1 focus:ring-black transition"
-        />
-        {q && (
-         <button
-          type="button"
-          onClick={() => { setQ(''); setShowAutocomplete(false) }}
-          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-black/40 hover:text-black"
-         >
-          <X size={14} />
-         </button>
-        )}
-       </div>
-      </form>
-
-      {/* Autocomplete Dropdown */}
-      {showAutocomplete && q.trim().length > 0 && (
-       <div className="absolute left-0 right-0 top-full mt-2 rounded-[20px] border border-black/10 bg-white p-3 shadow-2xl z-50 animate-fade-in">
-        <p className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-black/40">
-         {matchingProducts.length ? 'Matching Products' : 'No exact matches found'}
-        </p>
-
-        {matchingProducts.length > 0 ? (
-         <div className="divide-y divide-black/5">
-          {matchingProducts.map(p => (
-           <Link
-            key={p.id}
-            to={`/product/${p.slug}`}
-            onClick={() => setShowAutocomplete(false)}
-            className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#F0EEED]/60 transition"
-           >
-            <img
-             src={p.images[0]}
-             alt={p.name}
-             className="h-11 w-11 rounded-lg bg-[#F0EEED] object-contain mix-blend-multiply shrink-0"
-            />
-            <div className="min-w-0 flex-1">
-             <p className="text-xs font-bold text-black truncate">{p.name}</p>
-             <p className="text-[11px] text-black/50">{p.category}</p>
-            </div>
-            <span className="text-xs font-bold font-sans text-black">{inr(p.price)}</span>
+      {/* Desktop Navigation Links (Shifted Right with Prominent Luxury Gap from FORME) */}
+      <nav className="hidden md:flex items-center gap-6 lg:gap-8 ml-8 sm:ml-10 md:ml-12 lg:ml-16 text-xs sm:text-[13px] uppercase tracking-wider text-black/75 font-semibold shrink-0">
+       <div className="relative group">
+        <NavLink
+         to="/shop"
+         className="flex items-center gap-1 hover:text-black transition"
+        >
+         <span>Shop</span>
+         <ChevronDown size={13} className="text-black/50 group-hover:rotate-180 transition duration-200" />
+        </NavLink>
+        {/* Dropdown Menu */}
+        <div className="absolute left-0 top-full hidden group-hover:block pt-2 z-50">
+         <div className="bg-white border border-black/10 shadow-lg rounded-2xl py-2 w-52 normal-case font-medium">
+          <Link to="/shop" className="block px-4 py-2 text-xs font-semibold hover:bg-black/5">All Collections</Link>
+          {cats.map(c => (
+           <Link key={c} to={`/shop?cat=${encodeURIComponent(c)}`} className="block px-4 py-2 text-xs text-black/70 hover:bg-black/5 hover:text-black">
+            {c}
            </Link>
           ))}
-
-          <button
-           onClick={submit}
-           className="w-full mt-2 py-2 text-center text-xs font-bold text-black hover:underline flex items-center justify-center gap-1.5"
-          >
-           <span>View all results for "{q}"</span>
-           <ArrowRight size={13} />
-          </button>
          </div>
-        ) : (
-         <div className="p-4 text-center text-xs text-black/60">
-          Press Enter to browse catalogue archive for "{q}"
-         </div>
-        )}
+        </div>
        </div>
-      )}
+
+       <Link to="/shop?price=under1000" className="hover:text-black transition">
+        On Sale
+       </Link>
+       <Link to="/shop?sort=new" className="hover:text-black transition">
+        New Arrivals
+       </Link>
+       <Link to="/about" className="hover:text-black transition">
+        About
+       </Link>
+      </nav>
      </div>
 
-     {/* Right Action Icons: Search (mobile), Wishlist, Cart & Account */}
-     <div className="flex items-center gap-3 sm:gap-4 text-black">
+     {/* Right Section: Compact Search Bar + Action Icons */}
+     <div className="flex items-center gap-3 sm:gap-5">
+      {/* Search Input Bar with Live Autocomplete (Compact & Refined) */}
+      <div ref={searchRef} className="hidden md:flex relative w-52 lg:w-64">
+       <form onSubmit={submit} className="w-full">
+        <div className="relative w-full">
+         <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
+         <input
+          value={q}
+          onChange={e => {
+           setQ(e.target.value)
+           setShowAutocomplete(true)
+          }}
+          onFocus={() => setShowAutocomplete(true)}
+          placeholder="Search products..."
+          className="w-full rounded-full bg-[#F0F0F0] pl-10 pr-8 py-2 text-xs text-black placeholder-black/40 outline-none focus:ring-1 focus:ring-black transition"
+         />
+         {q && (
+          <button
+           type="button"
+           onClick={() => { setQ(''); setShowAutocomplete(false) }}
+           className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 hover:text-black"
+          >
+           <X size={14} />
+          </button>
+         )}
+        </div>
+       </form>
+
+       {/* Autocomplete Dropdown */}
+       {showAutocomplete && q.trim().length > 0 && (
+        <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 rounded-[20px] border border-black/10 bg-white p-3 shadow-2xl z-50 animate-fade-in">
+         <p className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-black/40">
+          {matchingProducts.length ? 'Matching Products' : 'No exact matches found'}
+         </p>
+
+         {matchingProducts.length > 0 ? (
+          <div className="divide-y divide-black/5">
+           {matchingProducts.map(p => (
+            <Link
+             key={p.id}
+             to={`/product/${p.slug}`}
+             onClick={() => setShowAutocomplete(false)}
+             className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#F0EEED]/60 transition"
+            >
+             <img
+              src={p.images[0]}
+              alt={p.name}
+              className="h-11 w-11 rounded-lg bg-[#F0EEED] object-contain mix-blend-multiply shrink-0"
+             />
+             <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-black truncate">{p.name}</p>
+              <p className="text-[11px] text-black/50">{p.category}</p>
+             </div>
+             <span className="text-xs font-bold font-sans text-black">{inr(p.price)}</span>
+            </Link>
+           ))}
+
+           <button
+            onClick={submit}
+            className="w-full mt-2 py-2 text-center text-xs font-bold text-black hover:underline flex items-center justify-center gap-1.5"
+           >
+            <span>View all results for "{q}"</span>
+            <ArrowRight size={13} />
+           </button>
+          </div>
+         ) : (
+          <div className="p-4 text-center text-xs text-black/60">
+           Press Enter to browse catalogue archive for "{q}"
+          </div>
+         )}
+        </div>
+       )}
+      </div>
+
+      {/* Right Action Icons: Search (mobile), Wishlist, Cart & Account */}
+      <div className="flex items-center gap-3 sm:gap-4 text-black">
       {/* Mobile Search Toggle */}
       <button
        aria-label="Search"
@@ -278,6 +283,7 @@ export default function Layout() {
       </Link>
      </div>
     </div>
+   </div>
 
     {/* Mobile Quick Search Bar (Toggled by Search Icon) */}
     {showMobileSearch && (
