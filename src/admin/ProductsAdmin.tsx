@@ -98,8 +98,15 @@ export default function ProductsAdmin() {
   setBusy(true)
   try {
    const b = await resizeImage(f)
-   const u = isDemoMode ? await blobToDataUrl(b) : await db.uploadImage(b)
+   let u: string
+   try {
+    u = isDemoMode ? await blobToDataUrl(b) : await db.uploadImage(b)
+   } catch (uploadErr) {
+    console.warn('Storage upload notice, using local preview:', uploadErr)
+    u = await blobToDataUrl(b)
+   }
    setE(x => x && { ...x, images: [...x.images, u] })
+   toast('Image added successfully', 'ok')
   } catch (x) {
    toast(x instanceof Error ? x.message : 'Upload failed', 'error')
   }

@@ -759,3 +759,42 @@ insert into orders(brand_id,order_code,status,subtotal,discount,shipping,total,p
 insert into order_items(brand_id,order_id,product_id,name,variant,qty,price_inr) values ((select id from brands where slug='forme'),(select id from orders where brand_id=(select id from brands where slug='forme') and order_code='FRM-DEMO104'),(select id from products where brand_id=(select id from brands where slug='forme') and slug='engraved-signet-ring'),'Engraved Signet Ring','6',1,2499);
 insert into orders(brand_id,order_code,status,subtotal,discount,shipping,total,payment_note,is_demo,ship_address,created_at) values ((select id from brands where slug='forme'),'FRM-DEMO105','Placed',6998,0,0,6998,'Demo payment (simulated)',true,'{"name":"Vihaan Gupta","email":"vihaan@example.com","phone":"9000000105","address":"12 Demo Street","city":"New Delhi","state":"Delhi","pin":"110001"}'::jsonb,now()-interval '5 days');
 insert into order_items(brand_id,order_id,product_id,name,variant,qty,price_inr) values ((select id from brands where slug='forme'),(select id from orders where brand_id=(select id from brands where slug='forme') and order_code='FRM-DEMO105'),(select id from products where brand_id=(select id from brands where slug='forme') and slug='minimal-quartz-watch'),'Minimal Quartz Watch','One size',2,3499);
+
+
+-- =========================================================================
+-- STORAGE BUCKET: product-images (Public Product Assets)
+-- =========================================================================
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('product-images', 'product-images', true, 10485760, array['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
+on conflict (id) do update set public = true;
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_policies where tablename = 'objects' and schemaname = 'storage' and policyname = 'Public Access for product-images'
+  ) then
+    create policy "Public Access for product-images" on storage.objects
+      for select using (bucket_id = 'product-images');
+  end if;
+
+  if not exists (
+    select 1 from pg_policies where tablename = 'objects' and schemaname = 'storage' and policyname = 'Upload Access for product-images'
+  ) then
+    create policy "Upload Access for product-images" on storage.objects
+      for insert with check (bucket_id = 'product-images');
+  end if;
+
+  if not exists (
+    select 1 from pg_policies where tablename = 'objects' and schemaname = 'storage' and policyname = 'Update Access for product-images'
+  ) then
+    create policy "Update Access for product-images" on storage.objects
+      for update using (bucket_id = 'product-images');
+  end if;
+
+  if not exists (
+    select 1 from pg_policies where tablename = 'objects' and schemaname = 'storage' and policyname = 'Delete Access for product-images'
+  ) then
+    create policy "Delete Access for product-images" on storage.objects
+      for delete using (bucket_id = 'product-images');
+  end if;
+end $$;
