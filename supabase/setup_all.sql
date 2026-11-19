@@ -477,22 +477,34 @@ create trigger reviews_rating
   after insert or delete on reviews
   for each row execute function refresh_rating();
 
--- Storage setup
-insert into storage.buckets(id,name,public) values ('product-images','product-images',true) on conflict do nothing;
+-- Storage setup (safe wrapper)
+do $$
+begin
+  insert into storage.buckets(id,name,public) values ('product-images','product-images',true) on conflict do nothing;
+exception when others then null;
+end $$;
 
-drop policy if exists "product images public read" on storage.objects;
-create policy "product images public read" on storage.objects for select using (bucket_id='product-images');
+do $$
+begin
+  drop policy if exists "product images public read" on storage.objects;
+  create policy "product images public read" on storage.objects for select using (bucket_id='product-images');
+exception when others then null;
+end $$;
 
-drop policy if exists "product images brand write" on storage.objects;
-create policy "product images brand write" on storage.objects for all
-  using (bucket_id='product-images' and (storage.foldername(name))[1]=my_brand()::text)
-  with check (bucket_id='product-images' and (storage.foldername(name))[1]=my_brand()::text);
+do $$
+begin
+  drop policy if exists "product images brand write" on storage.objects;
+  create policy "product images brand write" on storage.objects for all
+    using (bucket_id='product-images' and (storage.foldername(name))[1]=my_brand()::text)
+    with check (bucket_id='product-images' and (storage.foldername(name))[1]=my_brand()::text);
+exception when others then null;
+end $$;
 
 
 -- 5. INITIAL SEED (BRAND, SETTINGS, CATEGORIES, COUPONS)
 insert into brands(slug,name,is_demo)
 values ('forme','FORME®',true)
-on conflict do nothing;
+on conflict (slug) do update set is_demo=true;
 
 insert into store_settings(brand_id,tagline,whatsapp,email,announcement)
 select id,'Everything worth discovering.','91XXXXXXXXXX','hello@forme.example','Free shipping above ₹1,999 · Demo store'
