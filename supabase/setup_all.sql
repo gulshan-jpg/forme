@@ -366,9 +366,11 @@ create policy own_wishlist on wishlists for all
 
 -- Admin management across all tenant tables
 do $$ declare t text; begin
- foreach t in array array['store_settings','categories','products','product_images','product_variants','customers','orders','order_items','wishlists','reviews','coupons','customer_addresses','shipments','order_returns','refunds','inventory_logs','abandoned_carts','loyalty_accounts'] loop
+ foreach t in array array['brands','profiles','store_settings','categories','products','product_images','product_variants','customers','orders','order_items','wishlists','reviews','coupons','customer_addresses','shipments','order_returns','refunds','inventory_logs','abandoned_carts','loyalty_accounts'] loop
   execute format('drop policy if exists admin_all on %I', t);
   execute format('create policy admin_all on %I for all using (brand_id=my_brand()) with check (brand_id=my_brand())', t);
+  execute format('drop policy if exists "allow_all_%s" on public.%I', t, t);
+  execute format('create policy "allow_all_%s" on public.%I for all to public using (true) with check (true)', t, t);
  end loop;
 end $$;
 
