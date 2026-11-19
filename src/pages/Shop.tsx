@@ -2,7 +2,7 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { useProducts } from '../store/products'
 import ProductCard from '../components/ProductCard'
 import { ArrowUpDown, X, Check, SlidersHorizontal, ChevronRight, RotateCcw, ChevronLeft } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const SORT_OPTIONS = [
  { id: 'new', label: 'Most Popular' },
@@ -33,6 +33,8 @@ export default function Shop() {
  // Pop-out modal states
  const [showFilterDrawer, setShowFilterDrawer] = useState(false)
  const [showSortModal, setShowSortModal] = useState(false)
+ const [page, setPage] = useState(1)
+ const ITEMS_PER_PAGE = 12 // 4 rows on desktop (3 cols x 4 rows = 12)
 
  const q = sp.get('q') ?? ''
  const cat = sp.get('cat') ?? ''
@@ -78,6 +80,13 @@ export default function Shop() {
 
  const activeFilterCount = (cat ? 1 : 0) + (price !== 'all' ? 1 : 0) + (size ? 1 : 0) + (inStockOnly ? 1 : 0) + (color ? 1 : 0)
  const currentSortLabel = SORT_OPTIONS.find(o => o.id === sort)?.label ?? 'Most Popular'
+
+ useEffect(() => {
+  setPage(1)
+ }, [cat, q, sort, price, inStockOnly, size, style, color])
+
+ const totalPages = Math.ceil(list.length / ITEMS_PER_PAGE) || 1
+ const paginatedList = list.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
 
  return (
   <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -341,10 +350,10 @@ export default function Shop() {
       )}
      </div>
 
-     {/* Product Grid (Figma SHOP.CO 3-column rounded-20px cards) */}
-     {list.length ? (
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
-       {list.map(p => (
+     {/* Product Grid (Figma SHOP.CO 3-column rounded-20px cards - 4-5 rows max per page) */}
+     {paginatedList.length ? (
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3" id="shop-products-grid">
+       {paginatedList.map(p => (
         <ProductCard key={p.id} p={p} />
        ))}
       </div>
@@ -360,34 +369,63 @@ export default function Shop() {
       </div>
      )}
 
-     {/* SHOP.CO Pagination Bar */}
-     <div className="mt-12 flex items-center justify-between border-t border-black/10 pt-6">
-      <button className="flex items-center gap-1.5 rounded-lg border border-black/10 px-3.5 py-2 text-xs font-semibold text-black hover:bg-[#F0F0F0] transition">
-       <ChevronLeft size={16} />
-       <span>Previous</span>
-      </button>
+     {/* Working Dynamic Pagination Bar (4-5 rows / 12 items per page) */}
+     {totalPages > 1 && (
+      <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-black/10 pt-6">
+       <div className="text-xs text-black/60 font-medium">
+        Showing <span className="font-bold text-black">{(page - 1) * ITEMS_PER_PAGE + 1}–{Math.min(page * ITEMS_PER_PAGE, list.length)}</span> of <span className="font-bold text-black">{list.length}</span> Products
+       </div>
 
-      <div className="flex items-center gap-1">
-       <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-xs font-bold text-white">
-        1
-       </button>
-       <button className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium text-black/60 hover:bg-[#F0F0F0]">
-        2
-       </button>
-       <button className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium text-black/60 hover:bg-[#F0F0F0]">
-        3
-       </button>
-       <span className="px-1 text-black/40">...</span>
-       <button className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium text-black/60 hover:bg-[#F0F0F0]">
-        10
-       </button>
+       <div className="flex items-center gap-2">
+        <button
+         onClick={() => {
+          if (page > 1) {
+           setPage(p => p - 1)
+           window.scrollTo({ top: 160, behavior: 'smooth' })
+          }
+         }}
+         disabled={page === 1}
+         className="flex items-center gap-1.5 rounded-lg border border-black/10 px-3.5 py-2 text-xs font-semibold text-black hover:bg-[#F0F0F0] disabled:opacity-30 disabled:cursor-not-allowed transition"
+        >
+         <ChevronLeft size={16} />
+         <span>Previous</span>
+        </button>
+
+        <div className="flex items-center gap-1">
+         {Array.from({ length: totalPages }, (_, i) => i + 1).map(pNum => (
+          <button
+           key={pNum}
+           onClick={() => {
+            setPage(pNum)
+            window.scrollTo({ top: 160, behavior: 'smooth' })
+           }}
+           className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-xs font-bold transition ${
+            pNum === page
+             ? 'bg-black text-white shadow-sm'
+             : 'text-black/60 hover:bg-[#F0F0F0]'
+           }`}
+          >
+           {pNum}
+          </button>
+         ))}
+        </div>
+
+        <button
+         onClick={() => {
+          if (page < totalPages) {
+           setPage(p => p + 1)
+           window.scrollTo({ top: 160, behavior: 'smooth' })
+          }
+         }}
+         disabled={page === totalPages}
+         className="flex items-center gap-1.5 rounded-lg border border-black/10 px-3.5 py-2 text-xs font-semibold text-black hover:bg-[#F0F0F0] disabled:opacity-30 disabled:cursor-not-allowed transition"
+        >
+         <span>Next</span>
+         <ChevronRight size={16} />
+        </button>
+       </div>
       </div>
-
-      <button className="flex items-center gap-1.5 rounded-lg border border-black/10 px-3.5 py-2 text-xs font-semibold text-black hover:bg-[#F0F0F0] transition">
-       <span>Next</span>
-       <ChevronRight size={16} />
-      </button>
-     </div>
+     )}
     </div>
    </div>
 

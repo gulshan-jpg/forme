@@ -52,8 +52,8 @@ export default function Home() {
       
       {/* Left Column: Typography, Copy & Stats */}
       <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-       {/* Big, Bold Geometric Headline (UI Kit Style - Fills Area Boldly) */}
-       <h1 className="font-integral text-5xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] font-black leading-[1.03] tracking-tight text-black">
+       {/* Big, Bold Geometric Headline (UI Kit Style - Refined Scale) */}
+       <h1 className="font-integral text-4xl sm:text-5xl md:text-6xl lg:text-[58px] xl:text-[64px] font-black leading-[1.08] tracking-tight text-black">
         FIND CLOTHES THAT MATCH YOUR STYLE
        </h1>
 
@@ -109,12 +109,12 @@ export default function Home() {
         <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 72.3858 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
        </svg>
 
-       {/* Fashion Photography */}
-       <div className="relative z-10 w-full max-w-md sm:max-w-lg overflow-hidden">
+       {/* Luxury Still-Life Product Photography (Clean, No Models) */}
+       <div className="relative z-10 w-full max-w-md sm:max-w-lg overflow-hidden rounded-[28px] shadow-sm">
         <img
-         src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80"
-         alt="Find Clothes That Match Your Style"
-         className="w-full h-auto object-cover object-top"
+         src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80"
+         alt="Luxury Heavyweight Apparel Collection"
+         className="w-full h-auto object-cover object-center"
         />
        </div>
       </div>
@@ -234,60 +234,117 @@ export default function Home() {
       {/* 1. Casual */}
       <Link
        to="/shop?cat=Streetwear"
-       className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+       className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
-        src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80"
-        alt="Casual"
-        className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105"
+        src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80"
+        alt="Casual Still Life"
+        className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105 opacity-90"
        />
-       <div className="absolute top-6 left-6 z-10">
-        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Casual</p>
+       {/* High-contrast gradient scrim for 100% crystal clear readability */}
+       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition duration-300 group-hover:from-black/90" />
+       
+       <div className="absolute top-5 left-5 z-10">
+        <span className="inline-flex items-center text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/90 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/25">
+         Collection
+        </span>
+       </div>
+
+       <div className="absolute bottom-5 left-5 right-5 z-10 flex items-end justify-between">
+        <div>
+         <h3 className="font-integral text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-sm">Casual</h3>
+         <p className="text-white/80 text-xs sm:text-sm font-medium mt-0.5">Everyday Heavyweight Staples</p>
+        </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition-transform duration-300 group-hover:translate-x-1 shadow-md shrink-0">
+         <ChevronRight size={18} />
+        </div>
        </div>
       </Link>
 
       {/* 2. Formal */}
       <Link
        to="/shop?cat=Clothing"
-       className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+       className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
-        src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80"
-        alt="Formal"
-        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1200&q=80"
+        alt="Formal Still Life"
+        className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105 opacity-90"
        />
-       <div className="absolute top-6 left-6 z-10">
-        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Formal</p>
+       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition duration-300 group-hover:from-black/90" />
+       
+       <div className="absolute top-5 left-5 z-10">
+        <span className="inline-flex items-center text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/90 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/25">
+         Collection
+        </span>
+       </div>
+
+       <div className="absolute bottom-5 left-5 right-5 z-10 flex items-end justify-between">
+        <div>
+         <h3 className="font-integral text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-sm">Formal</h3>
+         <p className="text-white/80 text-xs sm:text-sm font-medium mt-0.5">Tailored Architecture & Suiting</p>
+        </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition-transform duration-300 group-hover:translate-x-1 shadow-md shrink-0">
+         <ChevronRight size={18} />
+        </div>
        </div>
       </Link>
 
       {/* 3. Party */}
       <Link
        to="/shop?cat=Clothing"
-       className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+       className="group relative md:col-span-7 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
-        src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=1000&q=80"
-        alt="Party"
-        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1200&q=80"
+        alt="Party Still Life"
+        className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105 opacity-90"
        />
-       <div className="absolute top-6 left-6 z-10">
-        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Party</p>
+       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition duration-300 group-hover:from-black/90" />
+       
+       <div className="absolute top-5 left-5 z-10">
+        <span className="inline-flex items-center text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/90 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/25">
+         Collection
+        </span>
+       </div>
+
+       <div className="absolute bottom-5 left-5 right-5 z-10 flex items-end justify-between">
+        <div>
+         <h3 className="font-integral text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-sm">Party</h3>
+         <p className="text-white/80 text-xs sm:text-sm font-medium mt-0.5">Elevated Evening & Statement Pieces</p>
+        </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition-transform duration-300 group-hover:translate-x-1 shadow-md shrink-0">
+         <ChevronRight size={18} />
+        </div>
        </div>
       </Link>
 
       {/* 4. Gym */}
       <Link
        to="/shop?cat=Streetwear"
-       className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[20px] bg-white transition hover:shadow-md"
+       className="group relative md:col-span-5 h-64 sm:h-72 overflow-hidden rounded-[24px] bg-[#1a1a1a] transition hover:shadow-xl"
       >
        <img
-        src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80"
-        alt="Gym"
-        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80"
+        alt="Gym Still Life"
+        className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105 opacity-90"
        />
-       <div className="absolute top-6 left-6 z-10">
-        <p className="font-integral text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black">Gym</p>
+       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition duration-300 group-hover:from-black/90" />
+       
+       <div className="absolute top-5 left-5 z-10">
+        <span className="inline-flex items-center text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/90 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/25">
+         Collection
+        </span>
+       </div>
+
+       <div className="absolute bottom-5 left-5 right-5 z-10 flex items-end justify-between">
+        <div>
+         <h3 className="font-integral text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-sm">Gym</h3>
+         <p className="text-white/80 text-xs sm:text-sm font-medium mt-0.5">High-Performance Minimal Activewear</p>
+        </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition-transform duration-300 group-hover:translate-x-1 shadow-md shrink-0">
+         <ChevronRight size={18} />
+        </div>
        </div>
       </Link>
      </div>

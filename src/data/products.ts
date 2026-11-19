@@ -63,8 +63,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
   tags: ['clothing', 't-shirt', 'heavyweight', 'cotton', 'oversized'],
   images: [
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
    'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
-   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80'
   ],
   stock: 24,
   featured: true,
@@ -73,7 +75,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.9,
   reviews: 64,
   createdAt: Date.now() - 86400000 * 4,
-  modelInfo: "Model is 6'1\" / 185 cm wearing size L",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Machine wash cold inside-out. Do not tumble dry. Warm iron on reverse.',
   sizeChart: STANDARD_TOP_CHART,
   specifications: {
@@ -98,7 +100,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['28', '30', '32', '34', '36'],
   tags: ['clothing', 'trousers', 'tailored', 'wool', 'pleated'],
   images: [
-   'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 12,
   featured: true,
@@ -107,7 +112,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.8,
   reviews: 38,
   createdAt: Date.now() - 86400000 * 2,
-  modelInfo: "Model is 5'11\" wearing waist size 32",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Dry clean recommended. Cool iron under pressing cloth.',
   sizeChart: TROUSER_CHART,
   specifications: {
@@ -132,7 +137,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['S', 'M', 'L', 'XL', 'XXL'],
   tags: ['clothing', 'sweatshirt', 'french-terry', 'minimal'],
   images: [
-   'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 18,
   featured: false,
@@ -141,7 +149,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.9,
   reviews: 51,
   createdAt: Date.now() - 86400000 * 10,
-  modelInfo: "Model is 6'0\" wearing size M",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Machine wash cold on gentle cycle. Lay flat to dry.',
   sizeChart: STANDARD_TOP_CHART,
   specifications: {
@@ -165,7 +173,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['S', 'M', 'L', 'XL'],
   tags: ['clothing', 'linen', 'overshirt', 'summer', 'minimal'],
   images: [
-   'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 8,
   featured: false,
@@ -174,7 +185,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.7,
   reviews: 29,
   createdAt: Date.now() - 86400000 * 1,
-  modelInfo: "Model is 6'2\" wearing size L",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Machine wash cold. Hang dry in shade. Iron damp if desired.',
   sizeChart: STANDARD_TOP_CHART,
   specifications: {
@@ -198,8 +209,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['38', '40', '42', '44'],
   tags: ['clothing', 'blazer', 'wool', 'tailored', 'outerwear'],
   images: [
-   'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1000&q=80',
-   'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 6,
   featured: true,
@@ -208,7 +221,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.9,
   reviews: 23,
   createdAt: Date.now() - 86400000 * 15,
-  modelInfo: "Model is 6'1\" wearing size 40",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Dry clean only.',
   sizeChart: STANDARD_TOP_CHART,
   specifications: {
@@ -231,7 +244,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['S', 'M', 'L', 'XL'],
   tags: ['clothing', 'merino', 'knitwear', 'polo'],
   images: [
-   'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 14,
   featured: false,
@@ -240,7 +256,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.8,
   reviews: 19,
   createdAt: Date.now() - 86400000 * 3,
-  modelInfo: "Model is 5'11\" wearing size M",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Hand wash in cold water with wool detergent. Dry flat.',
   sizeChart: STANDARD_TOP_CHART,
   specifications: {
@@ -265,7 +281,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['S', 'M', 'L', 'XL'],
   tags: ['streetwear', 'hoodie', 'heavyweight', 'oversized'],
   images: [
-   'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 9,
   featured: true,
@@ -274,7 +293,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 5.0,
   reviews: 84,
   createdAt: Date.now() - 86400000 * 7,
-  modelInfo: "Model is 6'2\" wearing size L for an oversized streetwear drape",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Machine wash cold inside-out. Hang dry to maintain fleece weight.',
   sizeChart: OVERSIZED_HOODIE_CHART,
   specifications: {
@@ -298,7 +317,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['S (30)', 'M (32)', 'L (34)', 'XL (36)'],
   tags: ['streetwear', 'cargo', 'ripstop', 'parachute', 'techwear'],
   images: [
-   'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 16,
   featured: false,
@@ -307,7 +329,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.8,
   reviews: 42,
   createdAt: Date.now() - 86400000 * 5,
-  modelInfo: "Model is 6'0\" wearing size M",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Machine wash cool. Do not iron directly on nylon.',
   sizeChart: TROUSER_CHART,
   specifications: {
@@ -330,7 +352,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['S', 'M', 'L', 'XL'],
   tags: ['streetwear', 'vintage', 'graphic', 'acid-wash'],
   images: [
-   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 22,
   featured: false,
@@ -339,7 +364,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.7,
   reviews: 31,
   createdAt: Date.now() - 86400000 * 1,
-  modelInfo: "Model is 6'1\" wearing size L",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Machine wash cold with like colours.',
   sizeChart: STANDARD_TOP_CHART,
   specifications: {
@@ -362,7 +387,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['M', 'L', 'XL'],
   tags: ['streetwear', 'workwear', 'jacket', 'canvas'],
   images: [
-   'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 5,
   featured: true,
@@ -371,7 +399,7 @@ export const DEMO_PRODUCTS: Product[] = [
   rating: 4.9,
   reviews: 37,
   createdAt: Date.now() - 86400000 * 12,
-  modelInfo: "Model is 6'0\" wearing size M",
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
   careInstructions: 'Spot clean or hand wash cold. Air dry.',
   sizeChart: OVERSIZED_HOODIE_CHART,
   specifications: {
@@ -394,7 +422,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['Adjustable Regular', 'Adjustable Oversized'],
   tags: ['streetwear', 'techwear', 'vest', 'tactical'],
   images: [
-   'https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 10,
   featured: false,
@@ -425,7 +456,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['30 ml', '50 ml'],
   tags: ['skincare', 'vitamin-c', 'serum', 'brightening'],
   images: [
-   'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1608248597359-52e850ea9501?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 35,
   featured: true,
@@ -457,7 +491,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['50 g', '100 g'],
   tags: ['skincare', 'ceramides', 'moisturiser', 'barrier-repair'],
   images: [
-   'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1608248597359-52e850ea9501?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 40,
   featured: false,
@@ -487,7 +524,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['120 ml'],
   tags: ['skincare', 'bha', 'toner', 'acne', 'exfoliant'],
   images: [
-   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 19,
   featured: false,
@@ -516,7 +556,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['15 ml'],
   tags: ['skincare', 'eye-cream', 'peptides', 'caffeine'],
   images: [
-   'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1608248597359-52e850ea9501?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 25,
   featured: false,
@@ -545,7 +588,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['50 ml'],
   tags: ['skincare', 'sunscreen', 'spf50', 'mineral', 'no-white-cast'],
   images: [
-   'https://images.unsplash.com/photo-1608248597359-2c67675f9d1d?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 45,
   featured: true,
@@ -577,7 +623,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['6 ml'],
   tags: ['beauty', 'lip-oil', 'peptides', 'gloss', 'cruelty-free'],
   images: [
-   'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1608248597359-52e850ea9501?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 30,
   featured: true,
@@ -608,7 +657,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['Fair 01', 'Light 02', 'Medium 03', 'Tan 04', 'Deep 05'],
   tags: ['beauty', 'skin-tint', 'foundation', 'dewy', 'spf'],
   images: [
-   'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 20,
   featured: false,
@@ -638,7 +690,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['8 ml'],
   tags: ['beauty', 'blush', 'liquid-blush', 'cheeks'],
   images: [
-   'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 22,
   featured: false,
@@ -667,7 +722,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['15 g'],
   tags: ['beauty', 'brows', 'lamination', 'makeup'],
   images: [
-   'https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 35,
   featured: false,
@@ -697,7 +755,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['18 inch / 45 cm', '20 inch / 50 cm', '22 inch / 55 cm'],
   tags: ['jewellery', 'gold', 'chain', 'vermeil', 'waterproof'],
   images: [
-   'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1611591475152-473523daec5f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 15,
   featured: true,
@@ -728,7 +789,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['20 mm (Mini)', '28 mm (Statement)'],
   tags: ['jewellery', 'earrings', 'hoops', 'sterling-silver'],
   images: [
-   'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1611591475152-473523daec5f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 18,
   featured: false,
@@ -757,7 +821,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['16-18 in Adjustable'],
   tags: ['jewellery', 'pearls', 'necklace', 'gold', 'baroque'],
   images: [
-   'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1611591475152-473523daec5f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 11,
   featured: true,
@@ -785,7 +852,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['US 7 (17.3 mm)', 'US 8 (18.1 mm)', 'US 9 (18.9 mm)', 'US 10 (19.8 mm)', 'US 11 (20.6 mm)'],
   tags: ['jewellery', 'ring', 'signet', 'silver', 'handmade'],
   images: [
-   'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1611591475152-473523daec5f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 10,
   featured: false,
@@ -816,7 +886,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['One Size'],
   tags: ['accessories', 'leather', 'wallet', 'minimal'],
   images: [
-   'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 28,
   featured: true,
@@ -846,7 +919,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['One Size'],
   tags: ['accessories', 'tote', 'canvas', 'bag'],
   images: [
-   'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 19,
   featured: false,
@@ -876,7 +952,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['38 mm Case'],
   tags: ['accessories', 'watch', 'minimal', 'sapphire', 'timepiece'],
   images: [
-   'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1508615039623-a25605d2b022?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 7,
   featured: true,
@@ -906,7 +985,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['49-21-145 (Universal)'],
   tags: ['accessories', 'sunglasses', 'acetate', 'eyewear'],
   images: [
-   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 12,
   featured: false,
@@ -936,7 +1018,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['220 g / 45-Hour Burn'],
   tags: ['home', 'candle', 'soy-wax', 'fragrance', 'lifestyle'],
   images: [
-   'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1605651202774-7d573fd3f12d?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 32,
   featured: true,
@@ -966,7 +1051,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['Set of 2 (350 ml each)'],
   tags: ['home', 'ceramic', 'mug', 'coffee', 'stoneware'],
   images: [
-   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 14,
   featured: false,
@@ -996,7 +1084,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['140 × 200 cm'],
   tags: ['home', 'throw', 'linen', 'blanket', 'waffle'],
   images: [
-   'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 10,
   featured: false,
@@ -1024,7 +1115,10 @@ export const DEMO_PRODUCTS: Product[] = [
   sizes: ['Height 18 cm'],
   tags: ['home', 'vase', 'ceramic', 'decor', 'minimalist'],
   images: [
-   'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=80'
+   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
   ],
   stock: 16,
   featured: false,
@@ -1055,8 +1149,11 @@ export const DEMO_PRODUCTS: Product[] = [
    sizes: ['UK 6', 'UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11'],
    sizeChart: FOOTWEAR_CHART,
    tags: ['footwear', 'sneakers', 'leather', 'minimalist', 'shoes'],
-   images: [
-   'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 22,
    featured: true,
@@ -1087,8 +1184,11 @@ export const DEMO_PRODUCTS: Product[] = [
    sizes: ['UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11'],
    sizeChart: FOOTWEAR_CHART,
    tags: ['footwear', 'loafers', 'suede', 'shoes', 'formal'],
-   images: [
-   'https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 15,
    featured: false,
@@ -1119,8 +1219,11 @@ export const DEMO_PRODUCTS: Product[] = [
    sizes: ['UK 6', 'UK 7', 'UK 8', 'UK 9', 'UK 10'],
    sizeChart: FOOTWEAR_CHART,
    tags: ['footwear', 'slides', 'leather', 'sandals', 'minimalist'],
-   images: [
-   'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 18,
    featured: false,
@@ -1149,8 +1252,11 @@ export const DEMO_PRODUCTS: Product[] = [
    sizes: ['UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11'],
    sizeChart: FOOTWEAR_CHART,
    tags: ['footwear', 'boots', 'chelsea', 'leather', 'winter'],
-   images: [
-   'https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 12,
    featured: true,
@@ -1181,8 +1287,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Fragrance',
    sizes: ['50 ml / 1.7 fl oz'],
    tags: ['fragrance', 'perfume', 'sandalwood', 'luxury', 'extrait'],
-   images: [
-   'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 26,
    featured: true,
@@ -1211,8 +1320,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Fragrance',
    sizes: ['100 ml / 3.4 fl oz'],
    tags: ['fragrance', 'perfume', 'hinoki', 'fresh', 'woody'],
-   images: [
-   'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 20,
    featured: false,
@@ -1241,8 +1353,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Fragrance',
    sizes: ['15 g Brass Slider Compact'],
    tags: ['fragrance', 'solid perfume', 'pocket', 'rose', 'oud'],
-   images: [
-   'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 35,
    featured: false,
@@ -1270,8 +1385,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Fragrance',
    sizes: ['200 ml Mist + Basalt Dish'],
    tags: ['fragrance', 'room spray', 'home', 'diffuser', 'aromatherapy'],
-   images: [
-   'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 14,
    featured: false,
@@ -1302,8 +1420,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: 'Smoked Obsidian Black',
    sizes: ['49-22-145 (Universal)'],
    tags: ['eyewear', 'sunglasses', 'acetate', 'polarized', 'fashion'],
-   images: [
-   'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 16,
    featured: true,
@@ -1332,8 +1453,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: 'Raw Brushed Antique Gold',
    sizes: ['47-21-140 (Universal)'],
    tags: ['eyewear', 'optical', 'glasses', 'titanium', 'blue-light'],
-   images: [
-   'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 11,
    featured: false,
@@ -1362,8 +1486,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: 'Champagne Crystal Acetate',
    sizes: ['51-19-142'],
    tags: ['eyewear', 'sunglasses', 'cat-eye', 'champagne', 'summer'],
-   images: [
-   'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 15,
    featured: false,
@@ -1392,8 +1519,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: 'Gunmetal / Amber Tint',
    sizes: ['54-18-145'],
    tags: ['eyewear', 'aviator', 'sunglasses', 'metal', 'unisex'],
-   images: [
-   'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 19,
    featured: false,
@@ -1422,8 +1552,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Wellness',
    sizes: ['4-Piece Ritual Kit'],
    tags: ['wellness', 'matcha', 'tea', 'ceramic', 'ritual'],
-   images: [
-   'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 25,
    featured: true,
@@ -1453,8 +1586,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: 'Oatmeal Pearl',
    sizes: ['One Size (Adjustable)'],
    tags: ['wellness', 'silk', 'sleep', 'mask', 'beauty'],
-   images: [
-   'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 30,
    featured: false,
@@ -1483,8 +1619,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Wellness',
    sizes: ['500 g Apothecary Jar'],
    tags: ['wellness', 'bath', 'soak', 'magnesium', 'recovery'],
-   images: [
-   'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 28,
    featured: false,
@@ -1512,8 +1651,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Wellness',
    sizes: ['Palm Size (13.5 cm)'],
    tags: ['wellness', 'brush', 'lymphatic', 'body', 'exfoliation'],
-   images: [
-   'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 22,
    featured: false,
@@ -1546,8 +1688,11 @@ export const DEMO_PRODUCTS: Product[] = [
    sizes: ['XS', 'S', 'M', 'L'],
    sizeChart: STANDARD_TOP_CHART,
    tags: ['clothing', 'silk', 'dress', 'slip', 'evening'],
-   images: [
-   'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 9,
    featured: true,
@@ -1556,7 +1701,7 @@ export const DEMO_PRODUCTS: Product[] = [
    rating: 5.0,
    reviews: 14,
    createdAt: Date.now() - 86400000 * 1,
-   modelInfo: 'Model is 5\'9" (175 cm) with 33" bust wearing size S',
+  modelInfo: 'Studio Still-Life / True to Size Regular Fit',
    careInstructions: 'Dry clean or hand wash cold with silk detergent. Iron inside out on low heat.',
    specifications: {
     'Fabric Composition': '100% Grade 6A Sand-Washed Mulberry Silk (19 Momme)',
@@ -1578,8 +1723,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: 'Heather Oatmeal',
    sizes: ['One Size (Unisex)'],
    tags: ['accessories', 'cashmere', 'beanie', 'winter', 'wool'],
-   images: [
-   'https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 24,
    featured: false,
@@ -1608,8 +1756,11 @@ export const DEMO_PRODUCTS: Product[] = [
    category: 'Skincare',
    sizes: ['150 ml / 5.1 fl oz'],
    tags: ['skincare', 'cleanser', 'oil', 'camellia', 'clean'],
-   images: [
-   'https://images.unsplash.com/photo-1608248597359-5633b47f4fc2?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1608248597359-52e850ea9501?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 31,
    featured: false,
@@ -1638,8 +1789,11 @@ export const DEMO_PRODUCTS: Product[] = [
    color: '18K Gold Vermeil',
    sizes: ['Adjustable Malleable Fit'],
    tags: ['jewellery', 'cuff', 'bracelet', 'gold', 'sculptural'],
-   images: [
-   'https://images.unsplash.com/photo-1611591475152-473549298492?auto=format&fit=crop&w=1000&q=80'
+  images: [
+   'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1611591475152-473523daec5f?auto=format&fit=crop&w=1000&q=80',
+   'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=1000&q=80',
   ],
    stock: 14,
    featured: true,

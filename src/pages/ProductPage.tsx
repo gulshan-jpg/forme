@@ -146,7 +146,7 @@ export default function ProductPage() {
       <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible shrink-0 sm:w-28">
        {p.images.slice(0, 4).map((s, i) => (
         <button
-         key={s}
+         key={`${s}-${i}`}
          onClick={() => setImg(i)}
          aria-label={`Thumbnail ${i + 1}`}
          className={`aspect-square w-20 sm:w-full rounded-[16px] overflow-hidden bg-[#F0EEED] p-2 transition border-2 ${

@@ -6,4 +6,4 @@ export const useProducts=create<S>()(persist((set)=>({products:isDemoMode?DEMO_P
  remove:(id)=>set(s=>({products:s.products.filter(x=>x.id!==id)})),
  addCategory:(c)=>set(s=>s.categories.includes(c)?s:{categories:[...s.categories,c]}),
  removeCategory:(c)=>set(s=>({categories:s.categories.filter(x=>x!==c)}))}),
- {name:'forme-products-v7',partialize:s=>isDemoMode?{products:s.products,categories:s.categories}:{}}))
+ {name:'forme-products-v8',partialize:s=>isDemoMode?{products:s.products,categories:s.categories}:{}}))
