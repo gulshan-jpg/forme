@@ -167,6 +167,17 @@ create index if not exists idx_product_images_prod on product_images(product_id)
 create index if not exists idx_reviews_prod on reviews(product_id);
 create index if not exists idx_customers_brand on customers(brand_id);
 
+-- Grants for Supabase API roles
+grant usage on schema public to anon, authenticated, service_role;
+grant all on all tables in schema public to anon, authenticated, service_role;
+grant all on all sequences in schema public to anon, authenticated, service_role;
+grant all on all routines in schema public to anon, authenticated, service_role;
+
+alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
+alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
+alter default privileges in schema public grant all on routines to anon, authenticated, service_role;
+
+
 
 -- 2. SHOPIFY UPGRADE TABLES (Addresses, Shipments, Returns, Refunds, Inventory Logs, Abandoned Carts, Loyalty)
 create table if not exists customer_addresses (
