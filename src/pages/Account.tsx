@@ -84,7 +84,12 @@ function SignIn() {
    <div>
     <label className="block text-xs font-semibold text-black/70 mb-1">
      Email
-     <input className="input mt-1" type="email" {...register('email')} />
+     <input
+      className="input mt-1 placeholder:text-black/40 text-sm"
+      type="email"
+      placeholder="yahan email daalo"
+      {...register('email')}
+     />
     </label>
     <Err m={errors.email?.message} />
    </div>
@@ -92,7 +97,12 @@ function SignIn() {
    <div>
     <label className="block text-xs font-semibold text-black/70 mb-1">
      Password
-     <input className="input mt-1" type="password" {...register('password')} />
+     <input
+      className="input mt-1 placeholder:text-black/40 text-sm"
+      type="password"
+      placeholder="yahan password"
+      {...register('password')}
+     />
     </label>
     <Err m={errors.password?.message} />
    </div>
@@ -127,7 +137,11 @@ function SignUp() {
    <div>
     <label className="block text-xs font-semibold text-black/70 mb-1">
      Full name
-     <input className="input mt-1" {...register('name')} />
+     <input
+      className="input mt-1 placeholder:text-black/40 text-sm"
+      placeholder="yahan apna naam daalo"
+      {...register('name')}
+     />
     </label>
     <Err m={errors.name?.message} />
    </div>
@@ -135,7 +149,12 @@ function SignUp() {
    <div>
     <label className="block text-xs font-semibold text-black/70 mb-1">
      Email
-     <input className="input mt-1" type="email" {...register('email')} />
+     <input
+      className="input mt-1 placeholder:text-black/40 text-sm"
+      type="email"
+      placeholder="yahan email daalo"
+      {...register('email')}
+     />
     </label>
     <Err m={errors.email?.message} />
    </div>
@@ -143,7 +162,12 @@ function SignUp() {
    <div>
     <label className="block text-xs font-semibold text-black/70 mb-1">
      Mobile number
-     <input className="input mt-1" type="tel" {...register('phone')} />
+     <input
+      className="input mt-1 placeholder:text-black/40 text-sm"
+      type="tel"
+      placeholder="yahan 10-digit mobile number daalo"
+      {...register('phone')}
+     />
     </label>
     <Err m={errors.phone?.message} />
    </div>
@@ -151,7 +175,12 @@ function SignUp() {
    <div>
     <label className="block text-xs font-semibold text-black/70 mb-1">
      Password
-     <input className="input mt-1" type="password" {...register('password')} />
+     <input
+      className="input mt-1 placeholder:text-black/40 text-sm"
+      type="password"
+      placeholder="yahan password"
+      {...register('password')}
+     />
     </label>
     <Err m={errors.password?.message} />
    </div>

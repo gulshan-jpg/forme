@@ -90,39 +90,35 @@ export default function AdminLogin() {
     {/* Form */}
     <form onSubmit={go} className="space-y-4">
      <div>
-      <label className="block text-xs font-bold uppercase tracking-wider text-black/70 mb-1.5">
+      <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-black/70 mb-1.5">
+       <Mail className="w-3.5 h-3.5 text-black/50" />
        Admin Email
       </label>
-      <div className="relative">
-       <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40 pointer-events-none" />
-       <input
-        className="input pl-10 placeholder:text-black/40 text-sm"
-        type="email"
-        placeholder="yahan email daalo"
-        value={e}
-        onChange={x => setE(x.target.value)}
-        aria-label="Email"
-        required
-       />
-      </div>
+      <input
+       className="input placeholder:text-black/40 text-sm"
+       type="email"
+       placeholder="yahan email daalo"
+       value={e}
+       onChange={x => setE(x.target.value)}
+       aria-label="Email"
+       required
+      />
      </div>
 
      <div>
-      <label className="block text-xs font-bold uppercase tracking-wider text-black/70 mb-1.5">
+      <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-black/70 mb-1.5">
+       <KeyRound className="w-3.5 h-3.5 text-black/50" />
        Password
       </label>
-      <div className="relative">
-       <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40 pointer-events-none" />
-       <input
-        className="input pl-10 placeholder:text-black/40 text-sm"
-        type="password"
-        placeholder="yahan password"
-        value={p}
-        onChange={x => setP(x.target.value)}
-        aria-label="Password"
-        required
-       />
-      </div>
+      <input
+       className="input placeholder:text-black/40 text-sm"
+       type="password"
+       placeholder="yahan password"
+       value={p}
+       onChange={x => setP(x.target.value)}
+       aria-label="Password"
+       required
+      />
      </div>
 
      {err && (
