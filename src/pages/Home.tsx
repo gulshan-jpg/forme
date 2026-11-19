@@ -107,24 +107,6 @@ export default function Home() {
 
       {/* Right Column: Hero Fashion Imagery with Rotating Top Selling Showcase */}
       <div className="lg:col-span-5 relative flex items-center justify-center py-4 lg:py-0">
-       {/* Big Sparkle Star (Top Right) */}
-       <svg
-        className="absolute -top-4 right-2 sm:right-6 w-14 h-14 sm:w-20 sm:h-20 text-black z-20 pointer-events-none"
-        viewBox="0 0 100 100"
-        fill="currentColor"
-       >
-        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 100 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
-       </svg>
-
-       {/* Small Sparkle Star (Mid Left) */}
-       <svg
-        className="absolute top-1/2 -left-3 sm:-left-6 w-8 h-8 sm:w-11 sm:h-11 text-black z-20 pointer-events-none"
-        viewBox="0 0 100 100"
-        fill="currentColor"
-       >
-        <path d="M50 0C50 27.6142 72.3858 50 100 50C72.3858 50 50 100 50 100C50 72.3858 27.6142 50 0 50C27.6142 50 50 27.6142 50 0Z" />
-       </svg>
-
        {/* Luxury Rotating Top Selling Product Card */}
        {currentHeroProduct && (
         <div
