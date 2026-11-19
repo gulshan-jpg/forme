@@ -15,8 +15,9 @@ export default {
       fontFamily: {
         sans: ['var(--font-family)', 'sans-serif'],
         integral: ['var(--font-heading)', 'sans-serif'],
+        brand: ['var(--font-brand)', 'serif'],
         satoshi: ['var(--font-family)', 'sans-serif'],
-        serif: ['var(--font-heading)', 'sans-serif']
+        serif: ['var(--font-brand)', 'serif']
       }
     }
   },

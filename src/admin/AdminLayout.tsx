@@ -33,7 +33,7 @@ export default function AdminLayout(){
   <div className="mx-auto max-w-7xl px-4 py-8">
    <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-4">
     <div className="flex items-center gap-3">
-     <p className="h-serif text-3xl font-medium">FORME® Admin</p>
+     <p className="font-brand text-3xl font-black uppercase text-black leading-none">FORME <span className="font-sans text-xs uppercase tracking-widest text-black/60 font-semibold ml-1">Admin</span></p>
      <span className="bg-sand/80 px-2 py-0.5 text-[10px] uppercase tracking-wider text-char">Portal</span>
     </div>
 

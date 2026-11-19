@@ -117,25 +117,28 @@ export default function Layout() {
        {menu ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      {/* Brand Name: FORME® in Clean Aesthetic Heading (Scaled) */}
-      <Link to="/" className="font-integral text-3xl sm:text-4xl md:text-[42px] font-black tracking-tight text-black">
-       FORME®
+      {/* Brand Name: FORME in Luxury Didone Serif (Biggest Visual Anchor) */}
+      <Link
+       to="/"
+       className="font-brand text-3xl sm:text-4xl md:text-[46px] lg:text-[52px] font-black tracking-tight text-black uppercase leading-none select-none hover:opacity-85 transition inline-block pt-1"
+      >
+       FORME
       </Link>
      </div>
 
-     {/* Desktop Navigation Links */}
-     <nav className="hidden md:flex items-center gap-6 text-sm text-black/80 font-medium">
+     {/* Desktop Navigation Links (Proportional Clean Subheadings) */}
+     <nav className="hidden md:flex items-center gap-6 text-xs sm:text-[13px] uppercase tracking-wider text-black/75 font-semibold">
       <div className="relative group">
        <NavLink
         to="/shop"
         className="flex items-center gap-1 hover:text-black transition"
        >
         <span>Shop</span>
-        <ChevronDown size={14} className="text-black/60 group-hover:rotate-180 transition duration-200" />
+        <ChevronDown size={13} className="text-black/50 group-hover:rotate-180 transition duration-200" />
        </NavLink>
        {/* Dropdown Menu */}
        <div className="absolute left-0 top-full hidden group-hover:block pt-2 z-50">
-        <div className="bg-white border border-black/10 shadow-lg rounded-2xl py-2 w-52">
+        <div className="bg-white border border-black/10 shadow-lg rounded-2xl py-2 w-52 normal-case font-medium">
          <Link to="/shop" className="block px-4 py-2 text-xs font-semibold hover:bg-black/5">All Collections</Link>
          {cats.map(c => (
           <Link key={c} to={`/shop?cat=${encodeURIComponent(c)}`} className="block px-4 py-2 text-xs text-black/70 hover:bg-black/5 hover:text-black">
@@ -307,6 +310,9 @@ export default function Layout() {
        </div>
       </form>
       <nav className="flex flex-col gap-3 text-sm font-semibold text-black">
+       <Link to="/" onClick={() => setMenu(false)} className="font-brand text-3xl font-black text-black tracking-tight uppercase mb-1 inline-block">
+        FORME
+       </Link>
        <Link to="/shop" onClick={() => setMenu(false)}>Shop All</Link>
        {cats.map(c => (
         <Link key={c} to={`/shop?cat=${encodeURIComponent(c)}`} onClick={() => setMenu(false)} className="text-black/70">
@@ -390,8 +396,8 @@ export default function Layout() {
       
       {/* Column 1: Brand & Socials */}
       <div className="col-span-2 md:col-span-1 space-y-5">
-       <Link to="/" className="font-integral text-2xl font-black text-black">
-        FORME®
+       <Link to="/" className="font-brand text-3xl sm:text-4xl font-black text-black tracking-tight uppercase leading-none inline-block">
+        FORME
        </Link>
        <p className="text-xs text-black/60 leading-relaxed max-w-xs">
         Meticulously crafted garments and sensory essentials designed to bring out your individuality and sense of style.
