@@ -4,6 +4,7 @@ import { useOrders } from '../store/orders'
 import { isDemoMode } from '../services/supabase'
 import * as db from '../services/db'
 import { toast } from '../store/toast'
+import LoadingScreen from '../components/LoadingScreen'
 import { inr } from '../lib/format'
 import { Download, User, ShoppingBag, ShieldCheck, X, Eye } from 'lucide-react'
 import type { Order } from '../types'
@@ -49,7 +50,7 @@ export default function CustomersAdmin() {
   document.body.removeChild(link)
  }
 
- if (loading) return <p className="text-sm">Loading customers…</p>
+ if (loading) return <LoadingScreen message="Loading customer directory…" />
 
  const customerOrders: Order[] = selectedCustomer
   ? orders.filter(o => o.customer.email.toLowerCase() === selectedCustomer.email.toLowerCase())

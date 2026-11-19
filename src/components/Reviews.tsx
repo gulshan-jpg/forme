@@ -11,6 +11,7 @@ import { useAccount } from '../store/account'
 import { isDemoMode } from '../services/supabase'
 import * as db from '../services/db'
 import { run } from '../lib/action'
+import LoadingScreen from './LoadingScreen'
 
 const schema = z.object({
  name: z.string().min(2, 'Enter your name'),
@@ -104,7 +105,7 @@ export default function Reviews({ p }: { p: Product }) {
 
    {/* Reviews 2-column Grid (Figma SHOP.CO style) */}
    {loading ? (
-    <p className="py-12 text-center text-sm text-black/60">Loading reviews…</p>
+    <LoadingScreen message="Loading reviews…" />
    ) : list.length === 0 ? (
     <p className="py-12 text-center text-sm text-black/60">
      No reviews yet. Be the first to write one!

@@ -3,6 +3,7 @@ import * as db from '../services/db'
 import type { DbCoupon } from '../services/db'
 import { run } from '../lib/action'
 import { toast } from '../store/toast'
+import LoadingScreen from '../components/LoadingScreen'
 
 export default function CouponsAdmin(){
  const [coupons,setCoupons]=useState<DbCoupon[]>([])
@@ -144,7 +145,7 @@ export default function CouponsAdmin(){
    </div>
   </form>}
 
-  {loading?<p className="py-16 text-center text-sm">Loading coupons…</p>:coupons.length===0?<div className="py-16 text-center text-sm">
+  {loading ? <LoadingScreen message="Loading active coupons…" /> : coupons.length === 0 ? <div className="py-16 text-center text-sm">
    <p>No coupons found.</p>
    <button className="btn btn-dark mt-4" onClick={()=>setShowAdd(true)}>Create your first coupon</button>
   </div>:(

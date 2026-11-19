@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react'; import { Routes, Route, Link, Navigate } from 'react-router-dom'
-import Layout from './components/Layout'; import Toaster from './components/Toaster'; import Home from './pages/Home'; import Shop from './pages/Shop'; import ProductPage from './pages/ProductPage'
+import Layout from './components/Layout'; import Toaster from './components/Toaster'; import LoadingScreen from './components/LoadingScreen'
+import Home from './pages/Home'; import Shop from './pages/Shop'; import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'; import Checkout from './pages/Checkout'; import Confirmation from './pages/Confirmation'; import Wishlist from './pages/Wishlist'; import Account from './pages/Account'; import TrackOrder from './pages/TrackOrder'
 import TermsPage from './pages/TermsPage'; import PrivacyPage from './pages/PrivacyPage'; import ShippingPage from './pages/ShippingPage'
 import AboutPage from './pages/AboutPage'; import ContactPage from './pages/ContactPage'; import ReturnsPage from './pages/ReturnsPage'
@@ -29,7 +30,7 @@ export default function App() {
 
  return (
   <>
-   <Suspense fallback={<p className="py-32 text-center text-sm text-char/60">Loading FORME®…</p>}>
+   <Suspense fallback={<LoadingScreen fullScreen message="Loading FORME®…" />}>
     <Routes>
      <Route element={<Layout />}>
       <Route index element={<Home />} />

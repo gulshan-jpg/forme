@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'; import { useProducts } from '../store/products'; import type { Product } from '../types'; import { inr, pct } from '../lib/format'
 import { isDemoMode } from '../services/supabase'; import * as db from '../services/db'; import { run } from '../lib/action'; import { toast } from '../store/toast'; import { resizeImage, blobToDataUrl } from '../lib/image'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, X } from 'lucide-react'
+import LoadingScreen, { BouncingDots } from '../components/LoadingScreen'
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
@@ -90,6 +91,7 @@ export default function ProductsAdmin() {
  const [specVal, setSpecVal] = useState('')
  const [searchQuery, setSearchQuery] = useState('')
  const [lowStockFilter, setLowStockFilter] = useState(false)
+ const [catFilter, setCatFilter] = useState<string | null>(null)
 
  const up = async (f?: File) => {
   if (!f) return
@@ -303,7 +305,7 @@ export default function ProductsAdmin() {
   <div>
    <div className="flex flex-wrap items-center justify-between gap-3">
     <div>
-     <h2 className="h-serif text-3xl">Products Catalogue</h2>
+     <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-black font-sans">Products Catalogue</h2>
      <p className="mt-1 text-xs text-char/70">Manage inventory, prices, specifications and imagery.</p>
     </div>
     <div className="flex flex-wrap items-center gap-2">
@@ -333,33 +335,101 @@ export default function ProductsAdmin() {
      >
       ⚠️ Low stock ({products.filter(p => p.stock <= 5).length})
      </button>
-     {(searchQuery || lowStockFilter) && (
+     {(searchQuery || lowStockFilter || catFilter) && (
       <button
        type="button"
-       onClick={() => { setSearchQuery(''); setLowStockFilter(false) }}
-       className="text-xs text-char/60 underline hover:text-ink"
+       onClick={() => { setSearchQuery(''); setLowStockFilter(false); setCatFilter(null) }}
+       className="text-xs text-char/60 underline hover:text-ink font-semibold"
       >
        Reset filter
       </button>
      )}
     </div>
-    <span className="text-xs text-char/60">
-     Showing {products.filter(p => (!searchQuery || (p.name + (p.sku || '') + p.category).toLowerCase().includes(searchQuery.toLowerCase())) && (!lowStockFilter || p.stock <= 5)).length} of {products.length} products
+    <span className="text-xs text-char/60 font-medium">
+     Showing {products.filter(p => {
+      const matchesSearch = !searchQuery || (p.name + (p.sku || '') + p.category).toLowerCase().includes(searchQuery.toLowerCase())
+      const matchesLow = !lowStockFilter || p.stock <= 5
+      const matchesCat = !catFilter || p.category === catFilter
+      return matchesSearch && matchesLow && matchesCat
+     }).length} of {products.length} products
     </span>
    </div>
 
-   <div className="mt-3 flex flex-wrap gap-2 text-xs">
+   {/* Accessible Category Filter Chips & Management */}
+   <div className="mt-3 flex flex-wrap items-center gap-2 text-xs" role="region" aria-label="Category management and filters">
+    {/* 'All' Category Reset Pill */}
+    <button
+     type="button"
+     onClick={() => setCatFilter(null)}
+     aria-pressed={catFilter === null}
+     className={`px-3 py-1.5 rounded-full text-xs font-bold transition border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-black ${
+      catFilter === null
+       ? 'bg-black text-white border-black shadow-xs'
+       : 'bg-white text-black border-black/15 hover:bg-black/5'
+     }`}
+    >
+     <span>All</span>
+     <span className={`text-[10px] rounded-full px-1.5 py-0.2 ${catFilter === null ? 'bg-white/20 text-white' : 'bg-black/5 text-black/60'}`}>
+      {products.length}
+     </span>
+    </button>
+
     {categories.map(c => {
-     const used = products.some(p => p.category === c)
+     const count = products.filter(p => p.category === c).length
+     const used = count > 0
+     const isSelected = catFilter === c
+
      return (
-      <span key={c} className="bg-sand/50 px-2.5 py-1 flex items-center gap-1.5 border border-ink/10">
-       {c}
-       <button aria-label={`Remove ${c}`} disabled={used} title={used ? 'Category still has products' : ''} onClick={async () => {
-        if (await run(() => db.removeCategory(c), 'Category removed')) removeCategory(c)
-       }}>
-        ×
+      <div
+       key={c}
+       className={`group px-3 py-1.5 rounded-full text-xs font-semibold transition border flex items-center gap-2 ${
+        isSelected
+         ? 'bg-black text-white border-black shadow-xs'
+         : 'bg-white text-black border-black/15 hover:border-black/40 hover:bg-black/5'
+       }`}
+      >
+       {/* Category Name & Product Count Pill (Click to Filter) */}
+       <button
+        type="button"
+        onClick={() => setCatFilter(isSelected ? null : c)}
+        aria-pressed={isSelected}
+        aria-label={`Filter by ${c} (${count} products)`}
+        className="flex items-center gap-1.5 focus:outline-none"
+       >
+        <span className="font-bold">{c}</span>
+        <span
+         className={`text-[10px] rounded-full px-1.5 py-0.2 font-medium ${
+          isSelected ? 'bg-white/20 text-white' : 'bg-black/5 text-black/60'
+         }`}
+        >
+         {count}
+        </span>
        </button>
-      </span>
+
+       {/* Accessible Delete Action */}
+       <button
+        type="button"
+        disabled={used}
+        aria-label={used ? `Cannot remove ${c}, it has ${count} product(s)` : `Remove empty category ${c}`}
+        title={used ? `Cannot remove: ${count} product(s) assigned to this category` : `Delete empty category ${c}`}
+        onClick={async (ev) => {
+         ev.stopPropagation()
+         if (await run(() => db.removeCategory(c), 'Category removed')) {
+          removeCategory(c)
+          if (catFilter === c) setCatFilter(null)
+         }
+        }}
+        className={`rounded-full p-0.5 transition ${
+         used
+          ? 'cursor-not-allowed text-black/30 opacity-40'
+          : isSelected
+          ? 'text-white/70 hover:bg-red-600 hover:text-white'
+          : 'text-black/40 hover:bg-red-600 hover:text-white'
+        }`}
+       >
+        <X size={12} strokeWidth={2.5} />
+       </button>
+      </div>
      )
     })}
    </div>
@@ -385,7 +455,8 @@ export default function ProductsAdmin() {
         .filter(p => {
          const matchesSearch = !searchQuery || (p.name + (p.sku || '') + p.category).toLowerCase().includes(searchQuery.toLowerCase())
          const matchesLow = !lowStockFilter || p.stock <= 5
-         return matchesSearch && matchesLow
+         const matchesCat = !catFilter || p.category === catFilter
+         return matchesSearch && matchesLow && matchesCat
         })
         .map(p => (
         <tr key={p.id} className="border-b border-ink/10">
