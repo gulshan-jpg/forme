@@ -123,6 +123,8 @@ export default function Home() {
            key={currentHeroProduct.id}
            src={currentHeroProduct.images[0]}
            alt={currentHeroProduct.name}
+           loading="eager"
+           decoding="async"
            className="w-full h-full object-cover object-center animate-fade-in group-hover:scale-105 transition-transform duration-700 ease-out"
           />
 

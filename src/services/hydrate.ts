@@ -4,7 +4,11 @@ import { DEMO_PRODUCTS, CATEGORIES } from '../data/products'
 
 export async function loadCatalog(){
   if(isDemoMode) return
-  useProducts.setState({status:'loading',error:''})
+  const currentProducts = useProducts.getState().products
+  // Stale-while-revalidate: only set loading if we have zero products in memory/cache
+  if(!currentProducts || currentProducts.length === 0){
+    useProducts.setState({status:'loading',error:''})
+  }
   try{
     const c=await db.fetchCatalog()
     // If backend connected but has no products yet, gracefully fallback to catalogue
@@ -18,7 +22,11 @@ export async function loadCatalog(){
   catch(e){
     console.warn('Backend catalog sync notice, loading demo fallback:', e)
     // Fallback so store NEVER breaks for visitors
-    useProducts.setState({products: DEMO_PRODUCTS, categories: CATEGORIES, status:'ready'})
+    if(useProducts.getState().products.length === 0){
+      useProducts.setState({products: DEMO_PRODUCTS, categories: CATEGORIES, status:'ready'})
+    } else {
+      useProducts.setState({status:'ready'})
+    }
   }
 }
 export async function syncWishlist(){const me=useAccount.getState().me;if(isDemoMode||!me)return

@@ -1,10 +1,32 @@
 import { lazy, Suspense, useEffect } from 'react'; import { Routes, Route, Link, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'; import Toaster from './components/Toaster'; import LoadingScreen from './components/LoadingScreen'
-import Home from './pages/Home'; import Shop from './pages/Shop'; import ProductPage from './pages/ProductPage'
-import CartPage from './pages/CartPage'; import Checkout from './pages/Checkout'; import Confirmation from './pages/Confirmation'; import Wishlist from './pages/Wishlist'; import Account from './pages/Account'; import TrackOrder from './pages/TrackOrder'
-import TermsPage from './pages/TermsPage'; import PrivacyPage from './pages/PrivacyPage'; import ShippingPage from './pages/ShippingPage'
-import AboutPage from './pages/AboutPage'; import ContactPage from './pages/ContactPage'; import ReturnsPage from './pages/ReturnsPage'
+import Home from './pages/Home'
+
+// Route-level code splitting: keep Home eager for 0ms initial paint, lazy-load all other pages
+const Shop = lazy(() => import('./pages/Shop'))
+const ProductPage = lazy(() => import('./pages/ProductPage'))
+const CartPage = lazy(() => import('./pages/CartPage'))
+const Checkout = lazy(() => import('./pages/Checkout'))
+const Confirmation = lazy(() => import('./pages/Confirmation'))
+const Wishlist = lazy(() => import('./pages/Wishlist'))
+const Account = lazy(() => import('./pages/Account'))
+const TrackOrder = lazy(() => import('./pages/TrackOrder'))
+const TermsPage = lazy(() => import('./pages/TermsPage'))
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
+const ShippingPage = lazy(() => import('./pages/ShippingPage'))
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const ReturnsPage = lazy(() => import('./pages/ReturnsPage'))
+
 import { loadCatalog, syncWishlist } from './services/hydrate'; import { useAccount } from './store/account'
+
+// Preload key secondary routes when browser is idle so navigation is instant
+if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+ window.requestIdleCallback(() => {
+  import('./pages/Shop')
+  import('./pages/ProductPage')
+ })
+}
 
 const AdminLogin = lazy(() => import('./admin/AdminLogin'))
 const AdminLayout = lazy(() => import('./admin/AdminLayout'))
